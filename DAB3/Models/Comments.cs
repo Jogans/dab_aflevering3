@@ -14,9 +14,7 @@ namespace DAB3.Models
         public string Id { get; set; }
         public string UserId { get; set; }
         public string PostId { get; set; }
-        public Users User { get; set; }
         public DateTime Time { get; set; }
-        public Posts Post { get; set; }
-        public string Text { get; set; }
+       public string Text { get; set; }
     }
 }

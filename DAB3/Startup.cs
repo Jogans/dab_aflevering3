@@ -35,6 +35,7 @@ namespace DAB3
 
             services.AddSingleton<CommentsService>();
             services.AddSingleton<PostsService>();
+            services.AddSingleton<CirclesService>();
             services.AddSingleton<UsersService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
