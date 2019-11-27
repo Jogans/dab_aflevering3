@@ -9,7 +9,11 @@ namespace DAB3.Services
 {
     public class UsersService
     {
+        
+
         private readonly IMongoCollection<Users> _users;
+
+        
 
         public UsersService(IDab3DatabaseSettings settings)
         {

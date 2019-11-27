@@ -13,7 +13,14 @@ namespace DAB3.Controllers
     public class UserController : ControllerBase
     {
         private readonly UsersService _usersService;
+        List<Users> Users = new List<Users>();
 
+
+
+        public UserController()
+        {
+            Users.Add(new Users { Age = 30, Gender = "male", UserName = "TestUser1", BlackListedUserId = null, Location = "Home", SubscriberId = null, MyCirclesId = null, PostsId = null });
+        }
         public UserController(UsersService usersService)
         {
             _usersService = usersService;
