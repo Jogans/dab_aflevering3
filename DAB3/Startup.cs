@@ -54,8 +54,14 @@ namespace DAB3
                 app.UseHsts();
             }
 
+            app.UseCors(cors =>
+                cors.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+
             app.UseHttpsRedirection();
             app.UseMvc();
+
         }
     }
 }
