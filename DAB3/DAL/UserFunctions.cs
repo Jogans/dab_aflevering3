@@ -13,11 +13,18 @@ namespace DAB3.DAL
     {
         UsersService _usersService;
         private CirclesService _circlesService;
+        private PostsService _postsService;
 
         UserFunctions()
         {
             _usersService = new UsersService();
             _circlesService = new CirclesService();
+            _postsService = new PostsService();
+        }
+
+        public void MethodAddPostToCircle(string id)
+        {
+            
         }
 
         public void MethodAddUserToBanList(string id, string id2)
