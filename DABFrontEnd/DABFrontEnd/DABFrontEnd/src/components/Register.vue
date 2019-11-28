@@ -1,122 +1,140 @@
 <template>
     <div class="Register">
         <div class="Login">
-            <div class="container">
-                <h1>Tilmeld</h1>
-                <p> Udfyld venligst denne formular for at oprette en konto.</p>
-                <hr>
+            <div class="container1">
+                <h1>Login</h1>
+
 
                 <label for="email"><b>Name</b></label>
-                <input type="text" v-model="email" placeholder="Skriv navn" name="email" required>
-
-                <label for="psw"><b>Gender</b></label>
                 <br />
-                <select class="units" id="unit_id">
+                <input type="text" placeholder="Skriv navn" v-bind="searchParameter" required>
+                <br />
+                <button class="test_btn" @click="created">Login</button>
+                <br />
+                <br />
+                <br />
+                <span v-html="info">{{info}}</span>
+
+
+                <h1>Register</h1>
+
+                <label for="name1"><b>Name</b></label>
+                <br />
+                <input type="text" v-model="name1" placeholder="Skriv navn" name="name1" required>
+                <br />
+                <br />
+
+                <label for="gender"><b>Gender</b></label>
+                <br />
+                <select class="gender" id="gender_id" name="gender">
                     <option value="Mand">Mand</option>
                     <option value="Din mor">Din mor</option>
                 </select>
                 <br />
-                <label for="psw-repeat"><b>Age</b></label>
-                <input type="password" placeholder="Skriv alder" name="psw" required>
+                <br />
+                <label for="age1"><b>Age</b></label>
+                <br />
+                <input type="text" placeholder="Skriv alder" name="age1" required>
 
 
+                <br />
+                <br />
 
                 <div class="clearfix">
-                    <button type="button" class="cancelbtn">Annuler</button>
-                    <button class="signupbtn" @click="created">Tilmeld</button>
+                    <button class="register" @click="register">Tilmeld</button>
                 </div>
+
             </div>
+
+            <div class="container2">
+                <h1>Update data</h1>
+
+                <label for="name2"><b>Name</b></label>
+                <br />
+                <input type="text" v-model="name2" placeholder="Skriv navn" name="name2" required>
+                <br />
+                <br />
+
+                <label for="gender"><b>Gender</b></label>
+                <br />
+                <select class="gender" id="gender_id" name="gender">
+                    <option value="Mand">Mand</option>
+                    <option value="Din mor">Din mor</option>
+                </select>
+                <br />
+                <br />
+                <label for="age2"><b>Age</b></label>
+                <br />
+                <input type="text" placeholder="Skriv alder" name="age2" required>
+
+
+                <br />
+                <br />
+
+                <div class="clearfix">
+                    <button class="update" @click="update">Update</button>
+                </div>
+
+            </div>
+
+            <div class="container2">
+                <h1>Delete user</h1>
+
+                <label for="id"><b>Indtast Id</b></label>
+                <br />
+                <input type="text" v-model="id" placeholder="Skriv navn" name="id" required>
+
+                <div class="clearfix">
+                    <button class="delete" @click="slet">Delete</button>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </template>
 
 <script>
-        export default {
+    export default {
         name: 'Register',
-        props: {
+        data: function () {
+            return {
+                info: null,
+                searchParameter: null
+            }
         },
+        methods: {
+            created() {
+                this.$http.get('https://localhost:44341/api/user?id=' + this.searchParameter, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }).then(response => (this.info = response.data))
+            },
+            register() {
+                this.$http.post('https://localhost:44341/api/user?get=' + this.searchParameter, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }).then(response => (this.info = response.data))
+            },
+            update() {
+                this.$http.put('https://localhost:44341/api/user?get=' + this.searchParameter, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }).then(response => (this.info = response.data))
+            },
+            slet() {
+                this.$http.delete('https://localhost:44341/api/user?get=' + this.searchParameter, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }).then(response => (this.info = response.data))
+            }
+        }
     };
 </script>
 
 <style scoped>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    * {
-        box-sizing: border-box
-    }
-
-    /* Full-width input fields */
-    input[type=text], input[type=password] {
-        width: 100%;
-        padding: 15px;
-        margin: 5px 0 22px 0;
-        display: inline-block;
-        border: none;
-        background: #f1f1f1;
-    }
-
-        input[type=text]:focus, input[type=password]:focus {
-            background-color: #ddd;
-            outline: none;
-        }
-
-    hr {
-        border: 1px solid #f1f1f1;
-        margin-bottom: 25px;
-    }
-
-    /* Set a style for all buttons */
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        opacity: 0.9;
-    }
-
-        button:hover {
-            opacity: 1;
-        }
-
-    /* Extra styles for the cancel button */
-    .cancelbtn {
-        padding: 14px 20px;
-        background-color: #f44336;
-    }
-
-    /* Float cancel and signup buttons and add an equal width */
-    .cancelbtn, .signupbtn {
-        float: left;
-        width: 50%;
-    }
-
-    /* Add padding to container elements */
-    .container {
-        padding: 16px;
-    }
-
-    /* Clear floats */
-    .clearfix::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-
-    .Login {
-        width: 100%;
-        max-width: 65%;
-        margin: auto;
-    }
-
-    /* Change styles for cancel button and signup button on extra small screens */
-    @media screen and (max-width: 300px) {
-        .cancelbtn, .signupbtn {
-            width: 100%;
-        }
-    }
 </style>

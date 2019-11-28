@@ -32,10 +32,19 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
     <Content Include="src\App.vue" />
+    <Content Include="src\components\Comment.vue">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\components\Data.vue">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\components\Login.vue">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\components\Post.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\Register.vue">
