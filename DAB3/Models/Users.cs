@@ -9,7 +9,7 @@ namespace DAB3.Models
 {
     public class Users
     {
-        [BsonId]
+       [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
@@ -20,10 +20,9 @@ namespace DAB3.Models
 
         public int Age { get; set; }
 
-        public string Location { get; set; }
-        public BsonArray Subscribers { get; set; }
-        public List<int> MyCircles { get; set; }
-        public BsonArray BlackListedUsers { get; set; }
-        public List<string> Posts { get; set; }
+        public List<string> SubscriberId { get; set; }
+        public List<string> MyCirclesId { get; set; }
+        public List<string> BlackListedUserId { get; set; }
+        public List<string> PostsId { get; set; }
     }
 }

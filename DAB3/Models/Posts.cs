@@ -15,7 +15,7 @@ namespace DAB3.Models
         public string UserId { get; set; }
         public string Text { get; set; }
         public DateTime Time { get; set; }
-        public BsonArray CircleOfUsers { get; set; }
-        public BsonArray Comments { get; set; }
+        public List<string> CirclesId { get; set; }
+        public List<Comments> Comments { get; set; }
     }
 }

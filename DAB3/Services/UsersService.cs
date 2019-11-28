@@ -9,14 +9,17 @@ namespace DAB3.Services
 {
     public class UsersService
     {
+        
+
         private readonly IMongoCollection<Users> _users;
 
-        public UsersService(IDab3DatabaseSettings settings)
-        {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
 
-            _users = database.GetCollection<Users>(settings.UsersCollectionName);
+        public UsersService()
+        {
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("DAB3Db");
+
+            _users = database.GetCollection<Users>("Users");
         }
 
         public List<Users> Get() =>
@@ -39,6 +42,13 @@ namespace DAB3.Services
 
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
+
+        public List<Users> FindUserFromName(string name)
+        {
+            return _users.Find(x => x.UserName == name).ToList();
+        }
+
+        public void RemoveAll() => _users.DeleteMany(FilterDefinition<Users>.Empty);
     }
 }
 
