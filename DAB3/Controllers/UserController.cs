@@ -41,6 +41,11 @@ namespace DAB3.Controllers
         [HttpPost]
         public ActionResult<Users> Create(Users user)
         {
+            Circle circle = new Circle {Name = "Public", UserIds = new List<string>()};
+            circle.UserIds.Add(user.Id);
+            CirclesService service = new CirclesService();
+            service.Create(circle);
+            user.MyCirclesId.Add(circle.Id);
             _usersService.Create(user);
 
             return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
