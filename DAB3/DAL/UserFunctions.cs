@@ -48,6 +48,17 @@ namespace DAB3.DAL
 
         }
 
+        public void MethodCreateComment(string postid, string comment, string userid)
+        {
+            var post1 = _postsService.Get(postid); 
+            Comments comment1 = new Comments();
+            comment1.Time = DateTime.Now;
+            comment1.Text = comment;
+            comment1.UserId = userid;
+            post1.Comments.Add(comment1);
+            _postsService.Update(postid, post1);
+        }
+
 
         public void MethodAddUserToBanList(string id, string id2)
         {
@@ -64,18 +75,20 @@ namespace DAB3.DAL
             _usersService.Update(id, user);
         }
 
-        public void MethodSubcribeToUser(string id, string id2)
+        public void MethodSubcribeToUser(string subscriberId, string subsribedToId)
         {
-            var user = _usersService.Get(id2);
-            user.SubscriberId.Add(id);
-            _usersService.Update(id2, user);
+            var user = _usersService.Get(subsribedToId);
+            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public");
+            subsribeCircle[0].UserIds.Add(subscriberId);
+            _circlesService.Update(subsribedToId, subsribeCircle[0]);
         }
 
-        public void MethodUnsubcribeToUser(string id, string id2)
+        public void MethodUnsubcribeToUser(string subscriberId, string subsribedToId)
         {
-            var user = _usersService.Get(id2);
-            user.SubscriberId.Remove(id);
-            _usersService.Update(id2, user);
+            var user = _usersService.Get(subsribedToId);
+            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public");
+            subsribeCircle[0].UserIds.Remove(subscriberId);
+            _circlesService.Update(subsribedToId, subsribeCircle[0]);
         }
 
         public void MethodCreateCircle(string id)
