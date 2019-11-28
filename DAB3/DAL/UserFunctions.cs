@@ -170,7 +170,7 @@ namespace DAB3.DAL
 
             //Circles
 
-            // JEG TÆNKER AT POSTID SKAL VÆRE EN DEL AF CIRCLE
+           
             foreach (string CircleId in _loggedInUser.MyCirclesId)
             {
                 var circle = _circlesService.Get(CircleId);
@@ -193,9 +193,45 @@ namespace DAB3.DAL
             }
 
             //SORT BY DATE & TIME
-            Feed.Sort(DateTime.Compare());
+            Feed.Sort((x, y) => DateTime.Compare(x.Time, y.Time));
+            // ENTEN ELLER
+            Feed = Feed.OrderBy(x => x.Time).ToList();
 
             return Feed;
+        }
+
+        // OVERVEJELSE? HVORDAN SKAL PUBLIC FORSTÅS? KAN ALLE SE DET ELLER KUN DEM SOM SUBSCRIBER
+        // HVIS JEG BESØGER EN ANDEN BRUGER KAN JEG SE NOGET PÅ PERSONENS WALL?
+
+        public List<Posts> Wall(string VisitorId, string userId)
+        {
+            List<Posts> Wall = new List<Posts>();
+            
+            // Check for BannedUser
+            var HostUser = _usersService.Get(userId);
+           if (HostUser.BlackListedUserId.Contains(VisitorId))
+            {
+                // HVAD SKAL RETURNES?
+                return null;
+            }
+
+            foreach (var CircleId in HostUser.MyCirclesId)
+            {
+                var circle = _circlesService.Get(CircleId);
+
+                if (!circle.UserIds.Contains(VisitorId))
+                {
+                    continue;
+                }
+
+                // Get the 3 latest post from Subscribee's Public Circle
+                for (int i = 0; i < 3; i++)
+                {
+                    Wall.Add(circle.Posts[circle.Posts.Count - i]);
+                }
+            }
+
+            return Wall;
         }
 
     }
