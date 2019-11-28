@@ -89,7 +89,8 @@ namespace DAB3.DAL
             users.Add(user3.Id);
             Circle family = new Circle
             {
-                UserIds = users
+                UserIds = users,
+                Name = "Family"
             };
 
             List<string> users2 = new List<string>();
@@ -99,7 +100,8 @@ namespace DAB3.DAL
             users2.Add(user6.Id);
             Circle friends = new Circle
             {
-                UserIds = users2
+                UserIds = users2,
+                Name = "Friends"
             };
 
             List<string> users3 = new List<string>();
@@ -107,7 +109,8 @@ namespace DAB3.DAL
             users2.Add(user6.Id);
             Circle closeFriends = new Circle
             {
-                UserIds = users2
+                UserIds = users2,
+                Name = "Close friends"
             };
             _circlesService.Create(family);
             _circlesService.Create(friends);
