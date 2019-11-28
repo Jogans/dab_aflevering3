@@ -31,6 +31,7 @@ namespace DAB3.DAL
                 UserId = users, 
                 Text = content, 
                 Time = DateTime.Now,
+                Comments = new List<Comments>()
             };
 
             var Post = _postsService.Create(post1);
