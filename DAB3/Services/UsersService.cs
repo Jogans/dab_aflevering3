@@ -43,6 +43,11 @@ namespace DAB3.Services
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
 
+        public List<Users> FindUserFromName(string name)
+        {
+            return _users.Find(x => x.UserName == name).ToList();
+        }
+
         public void RemoveAll() => _users.DeleteMany(FilterDefinition<Users>.Empty);
     }
 }
