@@ -19,23 +19,7 @@ namespace DAB3
         {
             CreateWebHostBuilder(args).Build().Run();
 
-            Users user = new Users
-            {
-                UserName = "Joe",
-                Gender = "Male",
-                Age = 18,
-                Location = "Home",
-                SubscriberId = null,
-                MyCirclesId = null,
-                BlackListedUserId = null,
-                PostsId = null,
-            };
-
-         
-
         }
-
-        public class Address
         
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

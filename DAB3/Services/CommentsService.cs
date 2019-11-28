@@ -11,12 +11,12 @@ namespace DAB3.Services
     {
         private readonly IMongoCollection<Comments> _comments;
 
-        public CommentsService(IDab3DatabaseSettings settings)
+        public CommentsService()
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("DAB3Db");
 
-            _comments = database.GetCollection<Comments>(settings.CommentsCollectionName);
+            _comments = database.GetCollection<Comments>("Comments");
         }
 
         public List<Comments> Get() =>
@@ -39,5 +39,6 @@ namespace DAB3.Services
 
         public void Remove(string id) =>
             _comments.DeleteOne(comment => comment.Id == id);
+        public void RemoveAll() => _comments.DeleteMany(FilterDefinition<Comments>.Empty);
     }
 }
