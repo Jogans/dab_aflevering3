@@ -23,7 +23,7 @@ namespace DAB3.Controllers
         public ActionResult<List<Users>> Get() =>
             _usersService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetUser")]
+        [HttpGet("{id:length(24)}", Name = "GetUser")]          //Done
         public ActionResult<Users> Get(string id)
         {
             var user = _usersService.Get(id);
@@ -37,7 +37,7 @@ namespace DAB3.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Users> Create(Users user)
+        public ActionResult<Users> Create(Users user)          //Done
         {
             _usersService.Create(user);
 
@@ -45,7 +45,7 @@ namespace DAB3.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Users userIn)
+        public IActionResult Update(string id, Users userIn)          //Done
         {
             var user = _usersService.Get(id);
 
@@ -59,7 +59,7 @@ namespace DAB3.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id:length(24)}")]           //Done
         public IActionResult Delete(string id)
         {
             var user = _usersService.Get(id);
