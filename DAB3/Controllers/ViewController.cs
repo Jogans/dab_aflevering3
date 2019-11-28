@@ -8,7 +8,7 @@ namespace DAB3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ViewController : ControllerBase
     {
         // GET api/values
         [HttpGet]
@@ -17,7 +17,7 @@ namespace DAB3.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET api/values/5 
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)           //Done
         {

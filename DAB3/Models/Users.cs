@@ -20,9 +20,12 @@ namespace DAB3.Models
 
         public int Age { get; set; }
 
-        public List<string> SubscriberId { get; set; }
         public List<string> MyCirclesId { get; set; }
         public List<string> BlackListedUserId { get; set; }
+       
+        // HVORFOR HAR USER EN LISTE AF POSTID?
         public List<string> PostsId { get; set; }
+
+        public List<string> SubscribedTo { get; set; }
     }
 }
