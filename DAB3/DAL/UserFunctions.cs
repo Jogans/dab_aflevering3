@@ -22,10 +22,43 @@ namespace DAB3.DAL
             _postsService = new PostsService();
         }
 
-        public void MethodAddPostToCircle(string id)
+        public void MethodCreatePost(string id, string content, List<string> postCircles)
         {
+            var user1 = _usersService.Get(id);
+            string users = user1.Id;
+            Posts post1 = new Posts
+            {
+                UserId = users, 
+                Text = content, 
+                Time = DateTime.Now,
+                Comments = new List<Comments>()
+            };
+
+            var Post = _postsService.Create(post1);
+            user1.PostsId.Add(_postsService.Get(post1.Id).Id);
+            _usersService.Update(user1.Id, user1);
+
+            foreach (string circleid in postCircles)
+            {
+                var circle1 = _circlesService.Get(circleid);
+                circle1.UserIds.Add(post1.Id);
+                _circlesService.Update(circle1.Id, circle1);
+            }
             
+
         }
+
+        public void MethodCreateComment(string postid, string comment, string userid)
+        {
+            var post1 = _postsService.Get(postid); 
+            Comments comment1 = new Comments();
+            comment1.Time = DateTime.Now;
+            comment1.Text = comment;
+            comment1.UserId = userid;
+            post1.Comments.Add(comment1);
+            _postsService.Update(postid, post1);
+        }
+
 
         public void MethodAddUserToBanList(string id, string id2)
         {
@@ -42,18 +75,20 @@ namespace DAB3.DAL
             _usersService.Update(id, user);
         }
 
-        public void MethodSubcribeToUser(string id, string id2)
+        public void MethodSubcribeToUser(string subscriberId, string subsribedToId)
         {
-            var user = _usersService.Get(id2);
-            user.SubscriberId.Add(id);
-            _usersService.Update(id2, user);
+            var user = _usersService.Get(subsribedToId);
+            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public");
+            subsribeCircle[0].UserIds.Add(subscriberId);
+            _circlesService.Update(subsribedToId, subsribeCircle[0]);
         }
 
-        public void MethodUnsubcribeToUser(string id, string id2)
+        public void MethodUnsubcribeToUser(string subscriberId, string subsribedToId)
         {
-            var user = _usersService.Get(id2);
-            user.SubscriberId.Remove(id);
-            _usersService.Update(id2, user);
+            var user = _usersService.Get(subsribedToId);
+            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public");
+            subsribeCircle[0].UserIds.Remove(subscriberId);
+            _circlesService.Update(subsribedToId, subsribeCircle[0]);
         }
 
         public void MethodCreateCircle(string id)
