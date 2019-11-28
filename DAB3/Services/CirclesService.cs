@@ -11,12 +11,12 @@ namespace DAB3.Services
     {
         private readonly IMongoCollection<Circle> _circles;
 
-        public CirclesService(IDab3DatabaseSettings settings)
+        public CirclesService()
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("DAB3Db");
 
-            _circles = database.GetCollection<Circle>(settings.CircleCollectionName);
+            _circles = database.GetCollection<Circle>("Circles");
         }
 
         public List<Circle> Get() =>
@@ -39,5 +39,6 @@ namespace DAB3.Services
 
         public void Remove(string id) =>
             _circles.DeleteOne(circle => circle.Id == id);
+        public void RemoveAll() => _circles.DeleteMany(FilterDefinition<Circle>.Empty);
     }
 }

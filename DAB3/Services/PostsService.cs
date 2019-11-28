@@ -11,12 +11,12 @@ namespace DAB3.Services
     {
         private readonly IMongoCollection<Posts> _posts;
 
-        public PostsService(IDab3DatabaseSettings settings)
+        public PostsService()
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("DAB3Db");
 
-            _posts = database.GetCollection<Posts>(settings.PostsCollectionName);
+            _posts = database.GetCollection<Posts>("Posts");
         }
 
         public List<Posts> Get() =>
@@ -39,5 +39,7 @@ namespace DAB3.Services
 
         public void Remove(string id) =>
             _posts.DeleteOne(post => post.Id == id);
+
+        public void RemoveAll() => _posts.DeleteMany(FilterDefinition<Posts>.Empty);
     }
 }
