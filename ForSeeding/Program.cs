@@ -21,8 +21,6 @@ namespace ForSeeding
             user.RemoveAll();
             PostsService post = new PostsService();
             post.RemoveAll();
-            CommentsService comment = new CommentsService();
-            comment.RemoveAll();
             CirclesService circle = new CirclesService();
             circle.RemoveAll();
         }

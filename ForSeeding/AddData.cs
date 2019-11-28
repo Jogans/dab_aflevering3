@@ -12,7 +12,7 @@ namespace DAB3.DAL
         public void DoTheThing()
         {
             CirclesService _circlesService = new CirclesService();
-            CommentsService _commentsService = new CommentsService();
+            //CommentsService _commentsService = new CommentsService();
             PostsService _postsService = new PostsService();
             UsersService _usersService = new UsersService();
             
@@ -83,6 +83,19 @@ namespace DAB3.DAL
             _usersService.Create(user5);
             _usersService.Create(user6);
 
+            List<string> publicList = new List<string>();
+            publicList.Add(user1.Id);
+            publicList.Add(user2.Id);
+            publicList.Add(user3.Id);
+            publicList.Add(user4.Id);
+            publicList.Add(user5.Id);
+            publicList.Add(user6.Id);
+            Circle publicCircle = new Circle
+            {
+                UserIds = publicList,
+                Name = "Public"
+            };
+
             List<string> users = new List<string>();
             users.Add(user1.Id);
             users.Add(user2.Id);
@@ -115,6 +128,7 @@ namespace DAB3.DAL
             _circlesService.Create(family);
             _circlesService.Create(friends);
             _circlesService.Create(closeFriends);
+            _circlesService.Create(publicCircle);
 
             var bruger1 = _usersService.Get(user1.Id);
             bruger1.MyCirclesId.Add(_circlesService.Get(family.Id).Id);
@@ -143,10 +157,12 @@ namespace DAB3.DAL
             bruger3.MyCirclesId.Add(closeFriends.Id);
             _usersService.Update(user3.Id, bruger3);
 
+
+
             Posts post1 = new Posts
             {
                 CirclesId = new List<string>(),
-                CommentsId = new List<string>(),
+                Comments = new List<Comments>(),
                 Time = DateTime.Now,
                 Text = "Farmand er hjemme",
                 UserId = user3.Id
@@ -154,7 +170,7 @@ namespace DAB3.DAL
             Posts post2 = new Posts
             {
                 CirclesId = new List<string>(),
-                CommentsId = new List<string>(),
+                Comments = new List<Comments>(),
                 Time = DateTime.Now,
                 Text = "Mine forældre er så tarvelige!",
                 UserId = user1.Id
@@ -162,7 +178,7 @@ namespace DAB3.DAL
             Posts post3 = new Posts
             {
                 CirclesId = new List<string>(),
-                CommentsId = new List<string>(),
+                Comments = new List<Comments>(),
                 Time = DateTime.Now,
                 Text = "Nu er Ove ude på ballade igen!",
                 UserId = user2.Id
@@ -170,7 +186,7 @@ namespace DAB3.DAL
             Posts post4 = new Posts
             {
                 CirclesId = new List<string>(),
-                CommentsId = new List<string>(),
+                Comments = new List<Comments>(),
                 Time = DateTime.Now,
                 Text = "Ove er en meget sød dreng",
                 UserId = user4.Id
@@ -178,12 +194,11 @@ namespace DAB3.DAL
             Posts post5 = new Posts
             {
                 CirclesId = new List<string>(),
-                CommentsId = new List<string>(),
+                Comments = new List<Comments>(),
                 Time = DateTime.Now,
                 Text = "Brunnhilde laver dejlig kage",
                 UserId = user1.Id
             };
-
         }
     }
 }

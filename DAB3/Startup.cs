@@ -27,13 +27,13 @@ namespace DAB3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<Dab3DatabaseSettings>(
-                Configuration.GetSection(nameof(Dab3DatabaseSettings)));
+            //services.Configure<Dab3DatabaseSettings>(
+            //    Configuration.GetSection(nameof(Dab3DatabaseSettings)));
 
-            services.AddSingleton<IDab3DatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<Dab3DatabaseSettings>>().Value);
+            //services.AddSingleton<IDab3DatabaseSettings>(sp =>
+            //    sp.GetRequiredService<IOptions<Dab3DatabaseSettings>>().Value);
 
-            services.AddSingleton<CommentsService>();
+            //services.AddSingleton<CommentsService>();
             services.AddSingleton<PostsService>();
             services.AddSingleton<CirclesService>();
             services.AddSingleton<UsersService>();
