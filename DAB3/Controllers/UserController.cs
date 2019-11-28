@@ -41,7 +41,8 @@ namespace DAB3.Controllers
         [HttpPost]
         public ActionResult<Users> Create(Users user)
         {
-            Circle circle = new Circle {Name = "Public", UserIds = new List<string>()};
+            Circle circle = new Circle {CircleName = "Public", UserIds = new List<string>()};
+            circle.CircleOwner = circle.Id;
             circle.UserIds.Add(user.Id);
             CirclesService service = new CirclesService();
             service.Create(circle);

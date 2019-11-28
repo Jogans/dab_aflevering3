@@ -13,6 +13,7 @@ namespace DAB3.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public List<string> UserIds { get; set; }
-        public string Name { get; set; }
+        public string CircleName { get; set; }
+        public string CircleOwner { get; set; }
     }
 }
