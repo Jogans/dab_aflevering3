@@ -22,10 +22,31 @@ namespace DAB3.DAL
             _postsService = new PostsService();
         }
 
-        public void MethodAddPostToCircle(string id)
+        public void MethodCreatePost(string id, string content, List<string> postCircles)
         {
+            var user1 = _usersService.Get(id);
+            string users = user1.Id;
+            Posts post1 = new Posts
+            {
+                UserId = users, 
+                Text = content, 
+                Time = DateTime.Now,
+            };
+
+            var Post = _postsService.Create(post1);
+            user1.PostsId.Add(_postsService.Get(post1.Id).Id);
+            _usersService.Update(user1.Id, user1);
+
+            foreach (string circleid in postCircles)
+            {
+                var circle1 = _circlesService.Get(circleid);
+                circle1.UserIds.Add(post1.Id);
+                _circlesService.Update(circle1.Id, circle1);
+            }
             
+
         }
+
 
         public void MethodAddUserToBanList(string id, string id2)
         {
