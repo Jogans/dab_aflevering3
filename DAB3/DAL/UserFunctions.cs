@@ -140,6 +140,28 @@ namespace DAB3.DAL
             _usersService.Update(user1.Id, user1);
         }
 
+
+
+        public string DeleteCircle(string myName, string circleName)
+        {
+            Users user1 = _usersService.FindSingleUserFromName(myName);
+           
+            Circle circle1 = _circlesService.FindSingleCircleFromName(circleName, user1.Id );
+            if (circle1.CircleOwner != user1.Id)
+            {
+                return "You are not the owner of this circle";
+            }
+
+            foreach (var userId in circle1.UserIds)
+            {
+                Users OtherCircleUser = _usersService.Get(userId);
+                OtherCircleUser.MyCirclesId.Remove(circle1.Id);
+            }
+
+            _circlesService.Remove(circle1.Id);
+            return "The circle has been deleted";
+        }
+
         public string AddUserToCircle(string myName, string OtherUserName, string circleName)
         {
             var myUser = _usersService.FindSingleUserFromName(myName);
