@@ -1,8 +1,8 @@
 <template>
-
-    <div class="container">
-        <h1><b>Find Feed</b></h1>
+    <div>
+        <h1><b>Find wall</b></h1>
         <input type="text" placeholder="Write your name" v-bind="owwName" required>
+        <input type="text" placeholder="Write name of other user" v-bind="otherName" required>
         <br />
         <button class="test_btn" @click="getWall">Find wall</button>
         <br />
@@ -12,16 +12,17 @@
 
 <script>
     export default {
-        name: 'Data',
+        name: 'Wall',
         data: function () {
             return {
                 info: null,
-                owwName: null
+                owwName: null,
+                otherName: null,
             }
         },
         methods: {
-            getFeed() {
-                this.$http.get('https://localhost:44341/api/user?id=' + this.owwName, {
+            getWall() {
+                this.$http.get('https://localhost:44341/api/user?id=' + this.owwName + '&id=' + this.otherName, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },
@@ -31,9 +32,8 @@
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-        input {
+    input {
         margin: 5px;
         font-size: 18px;
     }

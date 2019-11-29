@@ -24,12 +24,17 @@
                 <br />
                 <br />
 
-                <label for="gender"><b>Gender</b></label>
+                <label for="gender"><b>Choose gender</b></label>
                 <br />
-                <select class="gender" id="gender_id" name="gender">
+                <div class="slidecontainer">
+                    Male
+                    <input type="range" min="1" max="1000" value="500" class="slider" id="myRange">
+                    Female
+                </div>
+                <!--<select class="gender" id="gender_id" name="gender">
                     <option value="Mand">Mand</option>
                     <option value="Din mor">Din mor</option>
-                </select>
+                </select>-->
                 <br />
                 <br />
                 <label for="age1"><b>Age</b></label>
@@ -55,12 +60,17 @@
                 <br />
                 <br />
 
-                <label for="gender"><b>Gender</b></label>
+                <label for="gender"><b>Fra mand til kvinde vælg hvor du ligger</b></label>
                 <br />
-                <select class="gender" id="gender_id" name="gender">
-                    <option value="Mand">Mand</option>
-                    <option value="Din mor">Din mor</option>
-                </select>
+                <div class="slidecontainer">
+                    Male
+                    <input type="range" min="1" max="1000" value="500" class="slider" id="myRange">
+                    Female
+                </div>
+                <!--<select class="gender" id="gender_id" name="gender">
+        <option value="Mand">Mand</option>
+        <option value="Din mor">Din mor</option>
+    </select>-->
                 <br />
                 <br />
                 <label for="age2"><b>Age</b></label>
@@ -137,4 +147,25 @@
 </script>
 
 <style scoped>
+    input {
+        margin: 5px;
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 20px;
+    }
+
+    select {
+        font-size: 20px;
+    }
+.slider {
+  width: 50%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
 </style>
