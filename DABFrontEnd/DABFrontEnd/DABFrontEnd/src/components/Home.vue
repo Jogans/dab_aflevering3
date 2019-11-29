@@ -1,12 +1,14 @@
 <template>
     <div class="home">
+        <h1>Choose from menu</h1>
         <router-link to="/" class="btn_Register" tag="button">Home</router-link>
 
         <router-link to="/Register" class="btn_Register" tag="button">Login / Register</router-link>
         <!--<router-link to="/Login" class="btn_Register" tag="button">Login</router-link>-->
-        <router-link to="/Data" class="btn_Register" tag="button">Values</router-link>
         <router-link to="/Comment" class="btn_Register" tag="button">Comments</router-link>
         <router-link to="/Post" class="btn_Register" tag="button">Posts</router-link>
+        <router-link to="/Data" class="btn_Register" tag="button">Feed</router-link>
+        <router-link to="/Wall" class="btn_Register" tag="button">Wall</router-link>
 
     </div>
 </template>
@@ -23,7 +25,10 @@
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
+    button{
+        font-size: 20px;
+    }
 </style>
 
