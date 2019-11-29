@@ -195,7 +195,7 @@ namespace DAB3.DAL
             //SORT BY DATE & TIME
             Feed.Sort((x, y) => DateTime.Compare(x.Time, y.Time));
             // ENTEN ELLER
-            Feed = Feed.OrderBy(x => x.Time).ToList();
+            //Feed = Feed.OrderBy(x => x.Time).ToList();
 
             return Feed;
         }
@@ -230,6 +230,11 @@ namespace DAB3.DAL
                     Wall.Add(circle.Posts[circle.Posts.Count - i]);
                 }
             }
+
+            //SORT BY DATE & TIME
+            Wall.Sort((x, y) => DateTime.Compare(x.Time, y.Time));
+            // ENTEN ELLER
+            //Wall = Wall.OrderBy(x => x.Time).ToList();
 
             return Wall;
         }
