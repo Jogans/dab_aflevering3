@@ -43,9 +43,10 @@ namespace DAB3.DAL
                 circle1.UserIds.Add(Myuserid);
                 _circlesService.Update(circle1.Id, circle1);
             }
-            
-
         }
+
+
+
 
         public void CreateComment(string postid, string comment, string userid)
         {
@@ -142,7 +143,7 @@ namespace DAB3.DAL
         }
 
 
-        public List<Posts> ShowFeed(string Logged_In_UserId)
+        public List<Posts> Feed(string Logged_In_UserId)
         {
             List<Posts> Feed = new List<Posts>();
             var _loggedInUser = _usersService.Get(Logged_In_UserId);
@@ -212,6 +213,7 @@ namespace DAB3.DAL
            if (HostUser.BlackListedUserId.Contains(VisitorId))
             {
                 // HVAD SKAL RETURNES?
+
                 return null;
             }
 
@@ -223,11 +225,24 @@ namespace DAB3.DAL
                 {
                     continue;
                 }
+                
+                List<Posts> FromUser = new List<Posts>();
 
-                // Get the 3 latest post from Subscribee's Public Circle
-                for (int i = 0; i < 3; i++)
+                foreach (var post in circle.Posts)
                 {
-                    Wall.Add(circle.Posts[circle.Posts.Count - i]);
+                    if (post.UserId == userId)
+                    {
+                        FromUser.Add(post);
+
+                    }
+                }
+
+                //SORT BY DATE & TIME
+                FromUser.Sort((x, y) => DateTime.Compare(x.Time, y.Time));
+                // Get the 3 latest post from Subscribee's Public Circle
+                for (int i = 0; i < 3 && i < FromUser.Count; i++)
+                {
+                    Wall.Add(FromUser[FromUser.Count - i]);
                 }
             }
 
@@ -238,7 +253,6 @@ namespace DAB3.DAL
 
             return Wall;
         }
-
     }
 
 

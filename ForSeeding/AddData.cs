@@ -203,7 +203,6 @@ namespace DAB3.DAL
 
             Posts post1 = new Posts
             {
-                CirclesId = new List<string> {family.Id},
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddDays(-122),
                 Text = "Farmand er hjemme",
@@ -211,7 +210,6 @@ namespace DAB3.DAL
             };
             Posts post2 = new Posts
             {
-                CirclesId = new List<string> {friends.Id},
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddDays(-30),
                 Text = "Mine forældre er så tarvelige!",
@@ -219,7 +217,6 @@ namespace DAB3.DAL
             };
             Posts post3 = new Posts
             {
-                CirclesId = new List<string> {family.Id},
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddHours(-300),
                 Text = "Nu er Ove ude på ballade igen!",
@@ -227,7 +224,6 @@ namespace DAB3.DAL
             };
             Posts post4 = new Posts
             {
-                CirclesId = new List<string>{friends.Id},
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddHours(-1000),
                 Text = "Ove er en meget sød dreng",
@@ -235,7 +231,6 @@ namespace DAB3.DAL
             };
             Posts post5 = new Posts
             {
-                CirclesId = new List<string> {closeFriends.Id},
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddMinutes(-10),
                 Text = "Brunnhilde laver dejlig kage",
