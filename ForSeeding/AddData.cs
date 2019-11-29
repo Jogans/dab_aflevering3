@@ -23,8 +23,8 @@ namespace DAB3.DAL
                 UserName = "Ove Larsen",
                 MyCirclesId = new List<string>(),
                 BlackListedUserId = new List<string>(),
-                PostsId = new List<string>()
-                };
+                SubscribedTo = new List<string>()
+            };
             Users user2 = new Users
             {
                 Age = 27,
@@ -32,7 +32,7 @@ namespace DAB3.DAL
                 UserName = "Gertrud Larsen",
                 MyCirclesId = new List<string>(),
                 BlackListedUserId = new List<string>(),
-                PostsId = new List<string>()
+                SubscribedTo = new List<string>()
             };
             Users user3 = new Users
             {
@@ -41,7 +41,7 @@ namespace DAB3.DAL
                 UserName = "Gunnar Larsen",
                 MyCirclesId = new List<string>(),
                 BlackListedUserId = new List<string>(),
-                PostsId = new List<string>()
+                SubscribedTo = new List<string>()
             };
             Users user4 = new Users
             {
@@ -50,7 +50,7 @@ namespace DAB3.DAL
                 UserName = "Brunnhilde Jørgensen",
                 MyCirclesId = new List<string>(),
                 BlackListedUserId = new List<string>(),
-                PostsId = new List<string>()
+                SubscribedTo = new List<string>()
             };
             Users user5 = new Users
             {
@@ -59,7 +59,7 @@ namespace DAB3.DAL
                 UserName = "Sofie Lassen",
                 MyCirclesId = new List<string>(),
                 BlackListedUserId = new List<string>(),
-                PostsId = new List<string>()
+                SubscribedTo = new List<string>()
             };
             Users user6 = new Users
             {
@@ -68,7 +68,7 @@ namespace DAB3.DAL
                 UserName = "Nicolai Østergaard",
                 MyCirclesId = new List<string>(),
                 BlackListedUserId = new List<string>(),
-                PostsId = new List<string>()
+                SubscribedTo = new List<string>()
             };
 
             Circle c1 = new Circle  {CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
@@ -107,12 +107,12 @@ namespace DAB3.DAL
             c5.UserIds.Add(user5.Id);
             c6.UserIds.Add(user6.Id);
 
-            c1.CircleOwner = c1.Id;
-            c2.CircleOwner = c2.Id;
-            c3.CircleOwner = c3.Id;
-            c4.CircleOwner = c4.Id;
-            c5.CircleOwner = c5.Id;
-            c6.CircleOwner = c6.Id;
+            c1.CircleOwner = user1.Id;
+            c2.CircleOwner = user2.Id;
+            c3.CircleOwner = user3.Id;
+            c4.CircleOwner = user4.Id;
+            c5.CircleOwner = user5.Id;
+            c6.CircleOwner = user6.Id;
 
 
             _circlesService.Update(c1.Id, c1);
@@ -144,7 +144,9 @@ namespace DAB3.DAL
             Circle family = new Circle
             {
                 UserIds = users,
-                CircleName = "Family"
+                CircleName = "Family",
+                CircleOwner = users[0]
+
             };
 
             List<string> users2 = new List<string>();
@@ -155,16 +157,18 @@ namespace DAB3.DAL
             Circle friends = new Circle
             {
                 UserIds = users2,
-                CircleName = "Friends"
+                CircleName = "Friends",
+                CircleOwner = users2[0]
             };
 
             List<string> users3 = new List<string>();
-            users2.Add(user1.Id);
-            users2.Add(user6.Id);
+            users3.Add(user1.Id);
+            users3.Add(user6.Id);
             Circle closeFriends = new Circle
             {
                 UserIds = users2,
-                CircleName = "Close friends"
+                CircleName = "Close friends",
+                CircleOwner = users3[0]
             };
             _circlesService.Create(family);
             _circlesService.Create(friends);

@@ -2,9 +2,9 @@
 
     <div class="container">
         <h1><b>Find Feed</b></h1>
-        <input type="text" placeholder="Write your name" v-bind="owwName" required>
+        <input type="text" placeholder="Write your name" v-model="owwName" required>
         <br />
-        <button class="test_btn" @click="getWall">Find wall</button>
+        <button class="test_btn" @click="getFeed">Find Feed</button>
         <br />
         <span v-html="info">{{info}}</span>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
     export default {
-        name: 'Data',
+        name: 'Feed',
         data: function () {
             return {
                 info: null,
@@ -21,7 +21,7 @@
         },
         methods: {
             getFeed() {
-                this.$http.get('https://localhost:44341/api/user?id=' + this.owwName, {
+                this.$http.get('https://localhost:44341/api/wall?name=' + this.owwName, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },

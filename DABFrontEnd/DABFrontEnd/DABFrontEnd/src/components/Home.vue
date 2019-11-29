@@ -7,7 +7,7 @@
         <!--<router-link to="/Login" class="btn_Register" tag="button">Login</router-link>-->
         <router-link to="/Comment" class="btn_Register" tag="button">Comments</router-link>
         <router-link to="/Post" class="btn_Register" tag="button">Posts</router-link>
-        <router-link to="/Data" class="btn_Register" tag="button">Feed</router-link>
+        <router-link to="/Feed" class="btn_Register" tag="button">Feed</router-link>
         <router-link to="/Wall" class="btn_Register" tag="button">Wall</router-link>
 
     </div>

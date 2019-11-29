@@ -13,24 +13,22 @@ namespace DAB3.Controllers
     [ApiController]
     public class WallController : ControllerBase
     {
-        // GET api/
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] {"value1", "value2"};
-        }
+        //// GET api/
+        //[HttpGet]
+        //public ActionResult<IEnumerable<string>> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/view // Feed
-        [HttpGet("{id}")]
+        [HttpGet]
         public ActionResult<string> Get(string name) //Done
         {
-           
-            
             UserFunctions user = new UserFunctions();
-            user.Feed(id)
-
-            return ;
+            List<Posts> Feeds = user.Feed(name);
+            return user.FormatFeedListToHTML(Feeds);
         }
+
     }
 
     [Route("api/[controller]")]
@@ -38,10 +36,19 @@ namespace DAB3.Controllers
     public class ViewController : ControllerBase
     {
         // GET api/
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        //[HttpGet]
+        //public ActionResult<IEnumerable<string>> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        //GET api/view // Feed
+       [HttpGet]
+        public ActionResult<string> Get(string name) //Done
         {
-            return new string[] { "value1", "value2" };
+            UserFunctions user = new UserFunctions();
+            List<Posts> Feeds = user.Feed(name);
+            return user.FormatFeedListToHTML(Feeds);
         }
 
         // GET api/view // Feed

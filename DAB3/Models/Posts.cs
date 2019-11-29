@@ -17,6 +17,6 @@ namespace DAB3.Models
         public DateTime Time { get; set; }
         
         //public List<string> CirclesId { get; set; }
-        public List<Comments> Comments { get; set; }
+        public List<Comments> Comments { get; set; } = new List<Comments>();
     }
 }

@@ -9,6 +9,12 @@ namespace ForSeeding
     {
         static async System.Threading.Tasks.Task Main(string[] args)
         {
+
+            UsersService user = new UsersService();
+            user.RemoveAll();
+            CirclesService circle = new CirclesService();
+            circle.RemoveAll();
+
             AddData addData = new AddData();
             addData.DoTheThing();
 
@@ -17,10 +23,7 @@ namespace ForSeeding
             Console.WriteLine($"{ting[0].UserName}");
 
 
-            //UsersService user = new UsersService();
-            //user.RemoveAll();
-            //CirclesService circle = new CirclesService();
-            //circle.RemoveAll();
+
         }
     }
 }

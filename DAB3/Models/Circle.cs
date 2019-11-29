@@ -12,14 +12,14 @@ namespace DAB3.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public List<string> UserIds { get; set; }
+        public List<string> UserIds { get; set; } = new List<string>();
         public string CircleName { get; set; }
         public string CircleOwner { get; set; }
        
         /// <summary>
         ///  EVT Skal der inkluderes en Liste af posts
         /// </summary>
-        public List<Posts> Posts { get; set; }
+        public List<Posts> Posts { get; set; } = new List<Posts>();
 
 
     }

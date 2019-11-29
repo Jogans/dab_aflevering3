@@ -34,7 +34,6 @@ namespace DAB3.DAL
             };
 
             var Post = _postsService.Create(post1);
-            user1.PostsId.Add(post1.Id);
             _usersService.Update(user1.Id, user1);
 
             foreach (string circleId in postCircles)
@@ -143,19 +142,24 @@ namespace DAB3.DAL
         }
 
 
-        public List<Posts> Feed(string Logged_In_UserId)
+        public List<Posts> Feed(string Logged_In_UserName)
         {
             List<Posts> Feed = new List<Posts>();
-            var _loggedInUser = _usersService.Get(Logged_In_UserId);
+            List<Users> _userList = _usersService.FindUserFromName(Logged_In_UserName);
+            Users _loggedInUser = _userList[0];
 
 
-            // SUBSCRIBED TO
-            foreach (var subscription in _loggedInUser.SubscribedTo)
+        // SUBSCRIBED TO
+        if (_loggedInUser.SubscribedTo == null)
+        {
+            
+        }
+        foreach (var subscription in _loggedInUser.SubscribedTo)
             {
-                var provider = _usersService.Get(Logged_In_UserId);
+                var provider = _usersService.Get(_loggedInUser.Id);
 
                 // Check for BannedUser
-                if (provider.BlackListedUserId.Contains(Logged_In_UserId))
+                if (provider.BlackListedUserId.Contains(_loggedInUser.Id))
                 {
                     continue;
                 }
@@ -170,8 +174,6 @@ namespace DAB3.DAL
             }
 
             //Circles
-
-           
             foreach (string CircleId in _loggedInUser.MyCirclesId)
             {
                 var circle = _circlesService.Get(CircleId);
@@ -179,17 +181,27 @@ namespace DAB3.DAL
                 var circleOwner = _usersService.Get(circle.CircleOwner);
 
                 // Check for BannedUser
-                if (circleOwner.BlackListedUserId.Contains(Logged_In_UserId))
+                if (circleOwner.BlackListedUserId.Contains(_loggedInUser.Id))
                 {
                     continue;
                 }
                 var privateCircle = _circlesService.Get(CircleId);
 
                 // Get the 3 latest post from Subscribee's Public Circle
-                for (int i = 0; i < 3; i++)
+                if (privateCircle.Posts.Count != 0)
                 {
-                    Feed.Add(privateCircle.Posts[privateCircle.Posts.Count - i]);
+                    int count = privateCircle.Posts.Count - 1;
+                    int countMax = count - 3;
+                    if (countMax < 0)
+                    {
+                        countMax = 0;
+                    }
+                    for (int i = count; i > countMax; i--)
+                    {
+                        Feed.Add(privateCircle.Posts[i]);
+                    }
                 }
+
 
             }
 
@@ -200,6 +212,28 @@ namespace DAB3.DAL
 
             return Feed;
         }
+
+        public string FormatFeedListToHTML(List<Posts> Feed)
+        {
+            string initString = "" +
+                                "<html>";
+            string endString = "</html>";
+
+            string bodystring = "";
+            foreach (var post in Feed)
+            {
+                bodystring += "<p>" + "Text: " + post.Text + "<br/>";
+                foreach (var comment in post.Comments)
+                {
+                    bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                }
+
+                bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
+            }
+
+            return initString + bodystring + endString;
+        }
+
 
         // OVERVEJELSE? HVORDAN SKAL PUBLIC FORSTÅS? KAN ALLE SE DET ELLER KUN DEM SOM SUBSCRIBER
         // HVIS JEG BESØGER EN ANDEN BRUGER KAN JEG SE NOGET PÅ PERSONENS WALL?

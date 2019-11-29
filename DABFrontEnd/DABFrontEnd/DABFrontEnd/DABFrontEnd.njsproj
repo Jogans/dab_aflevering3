@@ -35,7 +35,7 @@
     <Content Include="src\components\Comment.vue">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="src\components\Data.vue">
+    <Content Include="src\components\Feed.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\Home.vue" />
