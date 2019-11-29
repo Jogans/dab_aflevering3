@@ -19,8 +19,6 @@ namespace ForSeeding
 
             //UsersService user = new UsersService();
             //user.RemoveAll();
-            //PostsService post = new PostsService();
-            //post.RemoveAll();
             //CirclesService circle = new CirclesService();
             //circle.RemoveAll();
         }
