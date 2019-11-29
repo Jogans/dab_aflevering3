@@ -22,25 +22,28 @@ namespace DAB3.DAL
             _postsService = new PostsService();
         }
 
-        public void CreatePost(string Myuserid, string content, List<string> postCircles)
+        public void CreatePost(string MyName, string content, List<string> postCircles)
         {
-            var user1 = _usersService.Get(Myuserid);
+            List<Users> ListMyUser = _usersService.FindUserFromName(MyName);
+
+            Users MyUser = ListMyUser[0];
+
             Posts post1 = new Posts
             {
-                UserId = Myuserid, 
+                UserId = MyUser.Id, 
                 Text = content, 
                 Time = DateTime.Now,
                 Comments = new List<Comments>()
             };
 
             var Post = _postsService.Create(post1);
-            user1.PostsId.Add(post1.Id);
-            _usersService.Update(user1.Id, user1);
+            MyUser.PostsId.Add(post1.Id);
+            _usersService.Update(MyUser.Id, MyUser);
 
             foreach (string circleId in postCircles)
             {
                 var circle1 = _circlesService.Get(circleId);
-                circle1.UserIds.Add(Myuserid);
+                circle1.UserIds.Add(MyUser.Id);
                 _circlesService.Update(circle1.Id, circle1);
             }
         }
