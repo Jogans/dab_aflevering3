@@ -26,10 +26,6 @@ namespace DAB3.Controllers
         {
            
             
-            UserFunctions user = new UserFunctions();
-            user.Feed(id)
-
-            return ;
         }
     }
 
