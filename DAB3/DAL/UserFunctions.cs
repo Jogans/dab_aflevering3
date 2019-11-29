@@ -44,14 +44,14 @@ namespace DAB3.DAL
             }
         }
 
+     
+        /////////////////////// COMMENT//////////////////////////
 
 
-
-        public void CreateComment(string comment, string MyName, string postid, string circleid)
+        public string CreateComment(string comment, string MyName, string postid, string circleid)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
             
-
             Comments comment1 = new Comments
             {
                 Time = DateTime.Now,
@@ -68,9 +68,11 @@ namespace DAB3.DAL
                 }
             }
             _circlesService.Update(circleid, currentCircle);
-
+            return "Comment has been created";
         }
 
+ 
+        //////////////////////// BANLIST //////////////////////////
 
         public void AddUserToBanList(string myName, string banName)
         {
@@ -94,6 +96,7 @@ namespace DAB3.DAL
             _usersService.Update(_myUser.Id, _myUser);
         }
 
+        /////////////////// SUBSCRIBER /////////////////////////////
         public void SubcribeToUser(string myName, string OtherUserName)
         {
             Users MyUser = _usersService.FindSingleUserFromName(myName);
@@ -121,6 +124,9 @@ namespace DAB3.DAL
 
         }
 
+
+
+        /////////////////////// CIRCLE ///////////////////////
         public void CreateCircle(string myName, string circleName)
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
@@ -140,7 +146,19 @@ namespace DAB3.DAL
             _usersService.Update(user1.Id, user1);
         }
 
+        public List<string> ShowMyCircles(string myName)
+        {
+            Users MyUser = _usersService.FindSingleUserFromName(myName);
+            List<Circle> myCircles = new List<Circle>();
+            List<string> CircleStrings = new List<string>();
 
+            foreach (var circleID in MyUser.MyCirclesId)
+            {
+                CircleStrings.Add(_circlesService.Get(circleID).CircleName);
+            }
+
+            return CircleStrings;
+        }
 
         public string DeleteCircle(string myName, string circleName)
         {
@@ -199,6 +217,8 @@ namespace DAB3.DAL
         }
 
 
+        
+        /////////// LIST ///////////////////////////
         public List<Posts> Feed(string Logged_In_UserName)
         {
             List<Posts> Feed = new List<Posts>();
@@ -295,6 +315,12 @@ namespace DAB3.DAL
         // OVERVEJELSE? HVORDAN SKAL PUBLIC FORSTÅS? KAN ALLE SE DET ELLER KUN DEM SOM SUBSCRIBER
         // HVIS JEG BESØGER EN ANDEN BRUGER KAN JEG SE NOGET PÅ PERSONENS WALL?
 
+
+
+
+    
+        /// //////////////////////// WALL ///////////////////////
+       
         public List<Posts> Wall(string VisitorName, string HostName)
         {
             List<Users> _VisitorList = _usersService.FindUserFromName(VisitorName);
