@@ -11,22 +11,29 @@ namespace DAB3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WallController : ControllerBase
+    public class FeedController : ControllerBase
     {
-        //// GET api/
-        //[HttpGet]
-        //public ActionResult<IEnumerable<string>> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/view // Feed
         [HttpGet]
         public ActionResult<string> Get(string name) //Done
         {
             UserFunctions user = new UserFunctions();
             List<Posts> Feeds = user.Feed(name);
             return user.FormatFeedListToHTML(Feeds);
+        }
+
+    }
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class WallController : ControllerBase
+    {
+
+        [HttpGet]
+        public ActionResult<string> Get(string Visitorname, string HostName) //Done
+        {
+            UserFunctions user = new UserFunctions();
+            List<Posts> wall = user.Wall(Visitorname, HostName);
+            return user.FormatWallListToHTML(wall);
         }
 
     }

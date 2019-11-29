@@ -309,8 +309,6 @@ namespace DAB3.DAL
             
            if (HostUser.BlackListedUserId.Contains(VisitorUser.Id))
             {
-                // HVAD SKAL RETURNES?
-
                 return null;
             }
 
@@ -327,7 +325,7 @@ namespace DAB3.DAL
 
                 foreach (var post in circle.Posts)
                 {
-                    if (post.UserId == VisitorUser.Id)
+                    if (post.UserId == HostUser.Id)
                     {
                         FromUser.Add(post);
 
@@ -337,20 +335,59 @@ namespace DAB3.DAL
                 //SORT BY DATE & TIME
                 FromUser.Sort((x, y) => DateTime.Compare(x.Time, y.Time));
                 // Get the 3 latest post from Subscribee's Public Circle
-                for (int i = 0; i < 3 && i < FromUser.Count; i++)
+                if (circle.Posts.Count != 0)
                 {
-                    Wall.Add(FromUser[FromUser.Count - i]);
+                    int count = circle.Posts.Count;
+                    if (count >= 1)
+                    {
+                        count --;
+                    }
+                    int countMax = count - 3;
+                    if (countMax < 0)
+                    {
+                        countMax = 0;
+                    }
+                    for (int i = count; i >= countMax; i--)
+                    {
+                        Wall.Add(circle.Posts[i]);
+                    }
                 }
             }
 
             //SORT BY DATE & TIME
             Wall.Sort((x, y) => DateTime.Compare(x.Time, y.Time));
             // ENTEN ELLER
-            //Wall = Wall.OrderBy(x => x.Time).ToList();
 
             return Wall;
         }
+
+        public string FormatWallListToHTML(List<Posts> Wall)
+        {
+            string initString = "" +
+                                "<html>";
+            string endString = "</html>";
+
+            string bodystring = "";
+            foreach (var post in Wall)
+            {
+                bodystring += "<p>" + "Text: " + post.Text + "<br/>";
+                foreach (var comment in post.Comments)
+                {
+                    bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                }
+
+                bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
+            }
+            return initString + bodystring + endString;
+        }
     }
+
+    //foreach (var comment in post.Comments)
+    //{
+    //bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+    //}
+    //bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
+
 
 
 }

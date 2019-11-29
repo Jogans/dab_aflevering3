@@ -21,21 +21,18 @@ namespace DAB3.Controllers
             _usersService = usersService;
         }
 
-        [HttpGet]
-        public ActionResult<List<Users>> Get() =>
-            _usersService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetUser")]          //Done
-        public ActionResult<Users> Get(string id)
+        [HttpGet]          //Done
+        public ActionResult<string> Get(string name)
         {
-            var user = _usersService.Get(id);
+            var user = _usersService.FindUserFromName(name);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return "Welcome " + user[0].UserName;
         }
 
         [HttpPost]

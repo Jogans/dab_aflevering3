@@ -7,9 +7,9 @@
 
                 <label for="email"><b>Name</b></label>
                 <br />
-                <input type="text" placeholder="Skriv navn" v-bind="searchParameter" required>
+                <input type="text" placeholder="Skriv navn" v-model="loginName" required>
                 <br />
-                <button class="test_btn" @click="created">Login</button>
+                <button class="test_btn" @click="Login">Login</button>
                 <br />
                 <br />
                 <br />
@@ -110,12 +110,13 @@
         data: function () {
             return {
                 info: null,
+                loginName: null,
                 searchParameter: null
             }
         },
         methods: {
-            created() {
-                this.$http.get('https://localhost:44341/api/user?id=' + this.searchParameter, {
+            Login() {
+                this.$http.get('https://localhost:44341/api/user?name=' + this.loginName, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },
