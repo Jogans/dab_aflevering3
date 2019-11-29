@@ -13,33 +13,33 @@ namespace DAB3.DAL
     {
         UsersService _usersService;
         private CirclesService _circlesService;
-        private PostsService _postsService;
+       
 
         public UserFunctions()
         {
             _usersService = new UsersService();
             _circlesService = new CirclesService();
-            _postsService = new PostsService();
         }
 
-        public void CreatePost(string Myuserid, string content, List<string> postCircles)
+        public void CreatePost(string MyName, string content, List<string> postCircles)
         {
-            var user1 = _usersService.Get(Myuserid);
+            Users MyUser = _usersService.FindSingleUserFromName(MyName);
+           
+
             Posts post1 = new Posts
             {
-                UserId = Myuserid, 
+                UserId = MyUser.Id, 
                 Text = content, 
                 Time = DateTime.Now,
                 Comments = new List<Comments>()
             };
 
-            var Post = _postsService.Create(post1);
-            _usersService.Update(user1.Id, user1);
+            _usersService.Update(MyUser.Id, MyUser);
 
             foreach (string circleId in postCircles)
             {
                 var circle1 = _circlesService.Get(circleId);
-                circle1.UserIds.Add(Myuserid);
+                circle1.Posts.Add(post1);
                 _circlesService.Update(circle1.Id, circle1);
             }
         }
@@ -47,98 +47,133 @@ namespace DAB3.DAL
 
 
 
-        public void CreateComment(string postid, string comment, string userid)
+        public void CreateComment(string comment, string MyName, string postid, string circleid)
         {
-            Comments comment1 = new Comments();
-            comment1.Time = DateTime.Now;
-            comment1.Text = comment;
-            comment1.UserId = userid;
+            Users MyUser = _usersService.FindSingleUserFromName(MyName);
+            
 
-            var post1 = _postsService.Get(postid);
-            post1.Comments.Add(comment1);
-            _postsService.Update(postid, post1);
+            Comments comment1 = new Comments
+            {
+                Time = DateTime.Now,
+                Text = comment,
+                UserId = MyUser.Id
+            };
+            Circle currentCircle = _circlesService.Get(circleid);
+
+            foreach (var posts in currentCircle.Posts)
+            {
+                if (posts.Id == postid)
+                {
+                    posts.Comments.Add(comment1);
+                }
+            }
+            _circlesService.Update(circleid, currentCircle);
+
         }
 
 
-        public void AddUserToBanList(string id, string id2)
+        public void AddUserToBanList(string myName, string banName)
         {
-            var user = _usersService.Get(id);
-            user.BlackListedUserId.Add(id2);
-            _usersService.Update(id, user);
+            Users _banUser = _usersService.FindSingleUserFromName(banName);
+
+
+            Users _myUser = _usersService.FindSingleUserFromName(myName);
+           
+            _myUser.BlackListedUserId.Add(_banUser.Id);
+            _usersService.Update(_myUser.Id, _myUser);
         }
 
 
-        public void RemoveUserFromBanList(string id, string id2)
+        public void RemoveUserFromBanList(string myName, string banName)
         {
-            var user = _usersService.Get(id);
-            user.BlackListedUserId.Remove(id2);
-            _usersService.Update(id, user);
+            Users _banUser = _usersService.FindSingleUserFromName(banName);
+            Users _myUser = _usersService.FindSingleUserFromName(myName);
+
+            
+            _myUser.BlackListedUserId.Remove(_banUser.Id);
+            _usersService.Update(_myUser.Id, _myUser);
         }
 
-        public void SubcribeToUser(string subscriberId, string subscribedToId)
+        public void SubcribeToUser(string myName, string OtherUserName)
         {
-            var user = _usersService.Get(subscribedToId);
-            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public", subscriberId);
-            subsribeCircle[0].UserIds.Add(subscriberId);
-            _circlesService.Update(subscribedToId, subsribeCircle[0]);
-            var Subscriber = _usersService.Get(subscriberId);
-            Subscriber.SubscribedTo.Add(subscribedToId);
-            _usersService.Update(subscriberId, Subscriber);
+            Users MyUser = _usersService.FindSingleUserFromName(myName);
+            Users OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
+
+            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public", OtherUser.Id);
+            subsribeCircle[0].UserIds.Add(MyUser.Id);
+            _circlesService.Update(OtherUser.Id, subsribeCircle[0]);
+            
+            MyUser.SubscribedTo.Add(subsribeCircle[0].Id);
+            _usersService.Update(MyUser.Id, MyUser);
+        }
+
+        public void UnsubcribeToUser(string myName, string OtherUserName)
+        {
+            Users MyUser = _usersService.FindSingleUserFromName(myName);
+            Users OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
+
+            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public", OtherUser.Id);
+            subsribeCircle[0].UserIds.Remove(MyUser.Id);
+            _circlesService.Update(OtherUser.Id, subsribeCircle[0]);
+
+            MyUser.SubscribedTo.Remove(subsribeCircle[0].Id);
+            _usersService.Update(MyUser.Id, MyUser);
 
         }
 
-        public void UnsubcribeToUser(string subscriberId, string subscribedToId)
+        public void CreateCircle(string myName, string circleName)
         {
-            var user = _usersService.Get(subscribedToId);
-            List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public", subscribedToId);
-            subsribeCircle[0].UserIds.Remove(subscriberId);
-            _circlesService.Update(subscribedToId, subsribeCircle[0]);
-            var Subscriber = _usersService.Get(subscriberId);
-            Subscriber.SubscribedTo.Remove(subscribedToId);
-            _usersService.Update(subscriberId, Subscriber);
-
-        }
-
-        public void CreateCircle(string id)
-        {
-            var user1 = _usersService.Get(id);
+            Users user1 = _usersService.FindSingleUserFromName(myName);
             List<string> users = new List<string>();
+            
             users.Add(user1.Id);
             Circle circle1 = new Circle
             {
-                UserIds = users
+                UserIds = users,
+                CircleOwner = user1.Id,
+                CircleName = circleName
             };
 
             var circle = _circlesService.Create(circle1);
+
             user1.MyCirclesId.Add(_circlesService.Get(circle1.Id).Id);
             _usersService.Update(user1.Id, user1);
         }
 
-        public void AddUserToCircle(string id1, string id2, string circleId)
+        public string AddUserToCircle(string myName, string OtherUserName, string circleName)
         {
-            var user1 = _usersService.Get(id1);
-            var user2 = _usersService.Get(id2);
-            var circle1 = _circlesService.Get(circleId);
+            var myUser = _usersService.FindSingleUserFromName(myName);
+            var OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
 
-            circle1.UserIds.Add(id2);
-            _circlesService.Update(circleId, circle1);
+            Circle circle =_circlesService.FindSingleCircleFromName(circleName, myUser.Id);
 
-            user2.MyCirclesId.Add(circleId);
-            _usersService.Update(user2.Id, user2);
+            circle.UserIds.Add(OtherUser.Id);
+            _circlesService.Update(circle.Id, circle);
+
+            OtherUser.MyCirclesId.Add(circle.Id);
+            _usersService.Update(OtherUser.Id, OtherUser);
+            return "User added to Circle";
         }
 
 
-        public void RemoveUserFromCircle(string id1, string id2, string circleId)
+        public string RemoveUserFromCircle(string myName, string OtherUserName, string circleName)
         {
-            var user1 = _usersService.Get(id1);
-            var user2 = _usersService.Get(id2);
-            var circle1 = _circlesService.Get(circleId);
+            var myUser = _usersService.FindSingleUserFromName(myName);
+            var OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
 
-            circle1.UserIds.Remove(id2);
-            _circlesService.Update(circleId, circle1);
+            Circle circle = _circlesService.FindSingleCircleFromName(circleName, myUser.Id);
 
-            user2.MyCirclesId.Remove(circleId);
-            _usersService.Update(user2.Id, user2);
+            if (circle.CircleOwner != myUser.Id)
+            {
+                return "Unable to remove user from circle due not owning the circle";
+            }
+
+            circle.UserIds.Remove(OtherUser.Id);
+            _circlesService.Update(circle.Id, circle);
+
+            OtherUser.MyCirclesId.Remove(circle.Id);
+            _usersService.Update(OtherUser.Id, OtherUser);
+            return "User removed to Circle";
         }
 
 

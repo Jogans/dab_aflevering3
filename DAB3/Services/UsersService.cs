@@ -48,6 +48,13 @@ namespace DAB3.Services
             return _users.Find(x => x.UserName == name).ToList();
         }
 
+        public Users FindSingleUserFromName(string name)
+        {
+            List<Users> listUsers = _users.Find(x => x.UserName == name).ToList();
+            Users user = listUsers[0];
+            return user;
+        }
+
         public void RemoveAll() => _users.DeleteMany(FilterDefinition<Users>.Empty);
     }
 }

@@ -34,7 +34,6 @@ namespace DAB3
             //    sp.GetRequiredService<IOptions<Dab3DatabaseSettings>>().Value);
 
             //services.AddSingleton<CommentsService>();
-            services.AddSingleton<PostsService>();
             services.AddSingleton<CirclesService>();
             services.AddSingleton<UsersService>();
 
