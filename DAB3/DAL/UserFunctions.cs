@@ -15,7 +15,7 @@ namespace DAB3.DAL
         private CirclesService _circlesService;
         private PostsService _postsService;
 
-        UserFunctions()
+        public UserFunctions()
         {
             _usersService = new UsersService();
             _circlesService = new CirclesService();
@@ -129,7 +129,7 @@ namespace DAB3.DAL
         }
 
 
-        public void RemoveUserToCircle(string id1, string id2, string circleId)
+        public void RemoveUserFromCircle(string id1, string id2, string circleId)
         {
             var user1 = _usersService.Get(id1);
             var user2 = _usersService.Get(id2);
@@ -206,6 +206,10 @@ namespace DAB3.DAL
 
         public List<Posts> Wall(string VisitorId, string userId)
         {
+           
+            
+            
+            
             List<Posts> Wall = new List<Posts>();
             
             // Check for BannedUser

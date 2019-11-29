@@ -3,24 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using DAB3.DAL;
+using DAB3.Models;
+using DAB3.Services;
 
 namespace DAB3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    public class WallController : ControllerBase
+    {
+        // GET api/
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
+        {
+            return new string[] {"value1", "value2"};
+        }
+
+        // GET api/view // Feed
+        [HttpGet("{id}")]
+        public ActionResult<string> Get(string name) //Done
+        {
+           
+            
+            UserFunctions user = new UserFunctions();
+            user.Feed(id)
+
+            return ;
+        }
+    }
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class ViewController : ControllerBase
     {
-        // GET api/values
+        // GET api/
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5 
+        // GET api/view // Feed
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)           //Done
         {
+            
             return "value";
         }
 

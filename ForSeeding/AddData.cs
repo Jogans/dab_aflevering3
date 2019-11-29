@@ -71,20 +71,12 @@ namespace DAB3.DAL
                 PostsId = new List<string>()
             };
 
-            Circle c1 = new Circle  {CircleName = "Public", UserIds = new List<string>()};
-            Circle c2 = new Circle { CircleName = "Public", UserIds = new List<string>()};
-            Circle c3 = new Circle { CircleName = "Public", UserIds = new List<string>()};
-            Circle c4 = new Circle { CircleName = "Public", UserIds = new List<string>()};
-            Circle c5 = new Circle { CircleName = "Public", UserIds = new List<string>()};
-            Circle c6 = new Circle { CircleName = "Public", UserIds = new List<string>()};
-
-
-            c1.CircleOwner = c1.Id;
-            c2.CircleOwner = c2.Id;
-            c3.CircleOwner = c3.Id;
-            c4.CircleOwner = c4.Id;
-            c5.CircleOwner = c5.Id;
-            c6.CircleOwner = c6.Id;
+            Circle c1 = new Circle  {CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
+            Circle c2 = new Circle { CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
+            Circle c3 = new Circle { CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
+            Circle c4 = new Circle { CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
+            Circle c5 = new Circle { CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
+            Circle c6 = new Circle { CircleName = "Public", UserIds = new List<string>(), Posts = new List<Posts>() };
 
 
             _circlesService.Create(c1);
@@ -114,6 +106,13 @@ namespace DAB3.DAL
             c4.UserIds.Add(user4.Id);
             c5.UserIds.Add(user5.Id);
             c6.UserIds.Add(user6.Id);
+
+            c1.CircleOwner = c1.Id;
+            c2.CircleOwner = c2.Id;
+            c3.CircleOwner = c3.Id;
+            c4.CircleOwner = c4.Id;
+            c5.CircleOwner = c5.Id;
+            c6.CircleOwner = c6.Id;
 
 
             _circlesService.Update(c1.Id, c1);
@@ -237,11 +236,8 @@ namespace DAB3.DAL
                 UserId = user1.Id
             };
 
-            _postsService.Create(post1);
-            _postsService.Create(post2);
-            _postsService.Create(post3);
-            _postsService.Create(post4);
-            _postsService.Create(post5);
+         
+
 
             Comments[] comments = new Comments[]
             {
@@ -278,15 +274,24 @@ namespace DAB3.DAL
             };
 
             post1.Comments.Add(comments[0]);
-            _postsService.Update(post1.Id, post1);
             post2.Comments.Add(comments[1]);
-            _postsService.Update(post2.Id, post2);
             post3.Comments.Add(comments[2]);
-            _postsService.Update(post3.Id, post3);
             post4.Comments.Add(comments[3]);
-            _postsService.Update(post4.Id, post4);
             post5.Comments.Add(comments[4]);
-            _postsService.Update(post5.Id, post5);
+            
+
+            c1.Posts.Add(post1);
+            c2.Posts.Add(post2);
+            c1.Posts.Add(post3);
+            c1.Posts.Add(post4);
+            c1.Posts.Add(post5);
+
+            _circlesService.Update(c1.Id,c1);
+            _circlesService.Update(c2.Id, c2);
+            _circlesService.Update(c3.Id, c3);
+            _circlesService.Update(c4.Id, c4);
+            _circlesService.Update(c5.Id, c5);
+
         }
     }
 }
