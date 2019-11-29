@@ -238,17 +238,19 @@ namespace DAB3.DAL
         // OVERVEJELSE? HVORDAN SKAL PUBLIC FORSTÅS? KAN ALLE SE DET ELLER KUN DEM SOM SUBSCRIBER
         // HVIS JEG BESØGER EN ANDEN BRUGER KAN JEG SE NOGET PÅ PERSONENS WALL?
 
-        public List<Posts> Wall(string VisitorId, string userId)
+        public List<Posts> Wall(string VisitorName, string HostName)
         {
-           
-            
-            
-            
+            List<Users> _VisitorList = _usersService.FindUserFromName(VisitorName);
+            Users VisitorUser = _VisitorList[0];
+
+            List<Users> _HostList = _usersService.FindUserFromName(HostName);
+            Users HostUser = _HostList[0];
+
+
             List<Posts> Wall = new List<Posts>();
             
-            // Check for BannedUser
-            var HostUser = _usersService.Get(userId);
-           if (HostUser.BlackListedUserId.Contains(VisitorId))
+            
+           if (HostUser.BlackListedUserId.Contains(VisitorUser.Id))
             {
                 // HVAD SKAL RETURNES?
 
@@ -259,7 +261,7 @@ namespace DAB3.DAL
             {
                 var circle = _circlesService.Get(CircleId);
 
-                if (!circle.UserIds.Contains(VisitorId))
+                if (!circle.UserIds.Contains(VisitorUser.Id))
                 {
                     continue;
                 }
@@ -268,7 +270,7 @@ namespace DAB3.DAL
 
                 foreach (var post in circle.Posts)
                 {
-                    if (post.UserId == userId)
+                    if (post.UserId == VisitorUser.Id)
                     {
                         FromUser.Add(post);
 
