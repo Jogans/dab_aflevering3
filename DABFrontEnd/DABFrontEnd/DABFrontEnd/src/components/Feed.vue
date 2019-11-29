@@ -21,7 +21,7 @@
         },
         methods: {
             getFeed() {
-                this.$http.get('https://localhost:44341/api/wall?name=' + this.owwName, {
+                this.$http.get('https://localhost:44341/api/feed?name=' + this.owwName, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },

@@ -1,8 +1,10 @@
 <template>
     <div>
-        <h1><b>Find wall</b></h1>
+        <h1><b>Add user to circle</b></h1>
         <input type="text" placeholder="Write your name" v-model="owwName" required>
         <input type="text" placeholder="Write name of other user" v-model="otherName" required>
+        <input type="text" placeholder="Write name of the circle" v-model="circleName" required>
+
         <br />
         <button class="test_btn" @click="getWall">Find wall</button>
         <br />
@@ -12,12 +14,13 @@
 
 <script>
     export default {
-        name: 'Wall',
+        name: 'CircleConfig',
         data: function () {
             return {
                 info: null,
                 owwName: null,
                 otherName: null,
+                circleName: null,
             }
         },
         methods: {

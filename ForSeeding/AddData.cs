@@ -283,14 +283,15 @@ namespace DAB3.DAL
             post4.Comments.Add(comments[3]);
             post5.Comments.Add(comments[4]);
             
-
+            family.Posts.Add(post1);
             c1.Posts.Add(post1);
             c2.Posts.Add(post2);
             c1.Posts.Add(post3);
             c1.Posts.Add(post4);
             c1.Posts.Add(post5);
 
-            _circlesService.Update(c1.Id,c1);
+            _circlesService.Update(family.Id, family);
+            _circlesService.Update(c1.Id, c1);
             _circlesService.Update(c2.Id, c2);
             _circlesService.Update(c3.Id, c3);
             _circlesService.Update(c4.Id, c4);
