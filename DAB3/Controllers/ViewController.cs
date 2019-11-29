@@ -20,13 +20,7 @@ namespace DAB3.Controllers
             return new string[] {"value1", "value2"};
         }
 
-        // GET api/view // Feed
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(string name) //Done
-        {
-           
-            
-        }
+        
     }
 
     [Route("api/[controller]")]
