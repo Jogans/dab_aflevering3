@@ -36,6 +36,13 @@ namespace DAB3.Services
             return _circles.Find(x => x.CircleName == name && x.CircleOwner.Contains(userId)).ToList();
         }
 
+        public Circle FindSingleCircleFromName(string name, string userId)
+        {
+            List<Circle> circleList =_circles.Find(x => x.CircleName == name && x.CircleOwner.Contains(userId)).ToList();
+            Circle circle = circleList[0];
+            return circle;
+        }
+
         public void Update(string id, Circle circleIn) =>
             _circles.ReplaceOne(circle => circle.Id == id, circleIn);
 

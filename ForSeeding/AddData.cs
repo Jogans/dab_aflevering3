@@ -13,7 +13,6 @@ namespace DAB3.DAL
         {
             CirclesService _circlesService = new CirclesService();
             //CommentsService _commentsService = new CommentsService();
-            PostsService _postsService = new PostsService();
             UsersService _usersService = new UsersService();
             
             Users user1 = new Users

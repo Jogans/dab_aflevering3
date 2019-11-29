@@ -23,7 +23,7 @@ namespace DAB3.Models
         public List<string> MyCirclesId { get; set; } = new List<string>();
         public List<string> BlackListedUserId { get; set; } = new List<string>();
        
-        // HVORFOR HAR USER EN LISTE AF POSTID?
+        // ID of public circle fra andre users. 
 
         public List<string> SubscribedTo { get; set; } = new List<string>();
     }
