@@ -52,7 +52,6 @@ namespace DAB3.DAL
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
             Circle myCircle = new Circle();
-            Circle correctCircle = new Circle();
             Posts myPosts = new Posts();
             
             Comments comment1 = new Comments
@@ -70,7 +69,7 @@ namespace DAB3.DAL
                     if (post.Id == Postid)
                     {
                         post.Comments.Add(comment1);
-                        _circlesService.Update(correctCircle.Id, correctCircle);
+                        _circlesService.Update(myCircle.Id, myCircle);
                         return "Comment has been created";
                     }
                 }
@@ -336,17 +335,16 @@ namespace DAB3.DAL
             string bodystring = "";
             foreach (var post in Feed)
             {
-                bodystring += "<p>" + "Text: " + post.Text + "<br/>"
-                    + "Circle: " + post.Id;
+                bodystring += "<p>" + "Text: " + post.Text + "<br/>";
                 foreach (var comment in post.Comments)
                 {
-                    bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                    bodystring += " Comment: " + comment.Text + " -------- By: " + _usersService.Get(comment.UserId).UserName + "<br/>";
                 }
 
                 bodystring += " Posted: " + post.Time + "<br/>" +
                               " Post id: " + post.Id +
                               "<p/>"
-                              + "<button class='test_btn'@click='sendComment'>Comment on post</button>" + "<br/>";
+                              + "<br/>";
             }
 
             return initString + bodystring + endString;
@@ -435,16 +433,21 @@ namespace DAB3.DAL
             string endString = "</html>";
 
             string bodystring = "";
+
             foreach (var post in Wall)
             {
                 bodystring += "<p>" + "Text: " + post.Text + "<br/>";
                 foreach (var comment in post.Comments)
                 {
-                    bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                    bodystring += " Comment: " + comment.Text + " -------- By: " + _usersService.Get(comment.UserId).UserName + "<br/>";
                 }
 
-                bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
+                bodystring += " Posted: " + post.Time + "<br/>" +
+                              " Post id: " + post.Id +
+                              "<p/>"
+                              + "<br/>";
             }
+
             return initString + bodystring + endString;
         }
     }

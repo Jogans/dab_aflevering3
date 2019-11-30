@@ -1,5 +1,12 @@
 <template>
     <div>
+        <h1><b>Create circle</b></h1>
+        <input type="text" placeholder="Write your name" v-model="myName3" required>
+        <input type="text" placeholder="Name of the new circle" v-model="circleName3" required>
+        <br />
+        <button class="test_btn" @click="createToCircle">Create new circle</button>
+        <br />
+        <span v-html="info3">{{info3}}</span>
         <h1><b>Add user to circle</b></h1>
         <input type="text" placeholder="Write your name" v-model="myName1" required>
         <input type="text" placeholder="Write name of other user" v-model="otherUserName1" required>
@@ -17,13 +24,7 @@
         <button class="test_btn" @click="deleteFromCircle">Remove from circle</button>
         <br />
         <span v-html="info2">{{info2}}</span>
-        <h1><b>Create circle</b></h1>
-        <input type="text" placeholder="Write your name" v-model="myName3" required>
-        <input type="text" placeholder="Name of the new circle" v-model="circleName3" required>
-        <br />
-        <button class="test_btn" @click="createToCircle">Create new circle</button>
-        <br />
-        <span v-html="info3">{{info3}}</span>
+
     </div>
 </template>
 

@@ -53,6 +53,11 @@ namespace DAB3
                 app.UseHsts();
             }
 
+
+            app.UseDefaultFiles();
+
+            app.UseStaticFiles();
+
             app.UseCors(cors =>
                 cors.AllowAnyOrigin()
                     .AllowAnyMethod()
@@ -60,6 +65,12 @@ namespace DAB3
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "index.html";
+
+            });
 
         }
     }
