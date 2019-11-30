@@ -160,6 +160,23 @@ namespace DAB3.DAL
             return CircleStrings;
         }
 
+        public Circle ShowCircle(string myName, string circleName)
+        {
+            Users MyUser = _usersService.FindSingleUserFromName(myName);
+            List<Circle> myCircles = new List<Circle>();
+            List<string> CircleStrings = new List<string>();
+
+            foreach (var circleID in MyUser.MyCirclesId)
+            {
+                CircleStrings.Add(_circlesService.Get(circleID).CircleName);
+            }
+
+            return CircleStrings;
+        }
+
+
+
+
         public string DeleteCircle(string myName, string circleName)
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
