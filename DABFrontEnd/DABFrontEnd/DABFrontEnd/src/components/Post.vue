@@ -3,7 +3,7 @@
     <div class="container">
 
         <div class="containerPost">
-            <h1>Post Posts</h1>
+            <h1>Create Post</h1>
 
             <label><b>Post Data</b></label>
             <br />
@@ -23,7 +23,8 @@
                 <br />
                 <button class="post" @click="createPost">Post</button>
             </div>
-
+            <br />
+            <span v-html="info">{{info}}</span>
         </div>
 
         <div class="containerPut">
@@ -65,7 +66,7 @@
                 ownName: null,
                 content: null,
                 i: 0,
-                contentString: "",
+                circleString: "",
             }
         },
         methods: {
@@ -81,16 +82,16 @@
                 this.i--;
                 this.inputs1.splice(index1, 1)
             },
-            description() {
+            circleList() {
                 var j = 0;
-                this.contentString = "";
+                this.circleString = "";
                 for (j = 0; j < this.i; j++) {
-                    this.contentString += this.inputs1[j].one + ";";
+                    this.circleString += this.inputs1[j].one + ";";
                 }
-                return this.contentString;
+                return this.circleString;
             },
             createPost() {
-                this.$http.post('https://localhost:44341/api/Posts?id=' + this.searchParameter, {
+                this.$http.post('https://localhost:44341/api/Post?myName=' + this.ownName + '&content=' + this.content + '&circleNamesList=' + this.circleList(), {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },

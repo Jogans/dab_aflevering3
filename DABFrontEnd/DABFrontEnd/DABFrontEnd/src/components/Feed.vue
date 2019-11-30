@@ -3,6 +3,8 @@
     <div class="container">
         <h1><b>Find Feed</b></h1>
         <input type="text" placeholder="Write your name" v-model="owwName" required>
+        <input type="text" placeholder="Write post id" v-model="postId" required>
+        <input class="commentInput" type="text" placeholder="Write your Comment" v-model="comment" required>
         <br />
         <button class="test_btn" @click="getFeed">Find Feed</button>
         <br />
@@ -16,12 +18,21 @@
         data: function () {
             return {
                 info: null,
-                owwName: null
+                owwName: null,
+                comment: null,
+                postId: null,
             }
         },
         methods: {
             getFeed() {
                 this.$http.get('https://localhost:44341/api/feed?name=' + this.owwName, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                }).then(response => (this.info = response.data))
+            },
+            sendComment() {
+                this.$http.post('https://localhost:44341/api/Comments?comment=' + this.comment + '&myName=' + this.owwName + '&postId=' + this.postId, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },
@@ -34,11 +45,14 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
         input {
-        margin: 5px;
-        font-size: 18px;
+        margin-right: 50px;
+        font-size: 20px;
     }
 
     button {
         font-size: 20px;
+    }
+    .commentInput{
+        width: 1500px;
     }
 </style>

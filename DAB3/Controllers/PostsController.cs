@@ -33,10 +33,10 @@ namespace DAB3.Controllers
             return postFunctions.CreatePost(myName, content, circleList);
         }
 
-        [HttpDelete]
-        public ActionResult<string> Delete(string myName, string banName)
-        {
-            return subscribefFunctions.UnsubcribeToUser(myName, banName);
-        }
+        //[HttpDelete]
+        //public ActionResult<string> Delete(string myName, string banName)
+        //{
+        //    return subscribefFunctions.UnsubcribeToUser(myName, banName);
+        //}
     }
 }

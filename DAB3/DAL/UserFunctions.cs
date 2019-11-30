@@ -30,6 +30,7 @@ namespace DAB3.DAL
                 UserId = MyUser.Id, 
                 Text = content, 
                 Time = DateTime.Now,
+                Id = DateTime.Now.ToLongTimeString(),
                 Comments = new List<Comments>()
             };
             
@@ -328,13 +329,17 @@ namespace DAB3.DAL
             string bodystring = "";
             foreach (var post in Feed)
             {
-                bodystring += "<p>" + "Text: " + post.Text + "<br/>";
+                bodystring += "<p>" + "Text: " + post.Text + "<br/>"
+                    + "Circle: " + post.Id;
                 foreach (var comment in post.Comments)
                 {
                     bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
                 }
 
-                bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
+                bodystring += " Posted: " + post.Time + "<br/>" +
+                              " Post id: " + post.Id +
+                              "<p/>"
+                              + "<button class='test_btn'@click='sendComment'>Comment on post</button>" + "<br/>";
             }
 
             return initString + bodystring + endString;
