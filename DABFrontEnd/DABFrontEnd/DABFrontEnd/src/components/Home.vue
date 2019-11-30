@@ -4,6 +4,7 @@
         <router-link to="/" class="btn_Register" tag="button">Home</router-link>
 
         <router-link to="/Register" class="btn_Register" tag="button">Login / Register</router-link>
+        <router-link to="/Post" class="btn_Register" tag="button">Create post</router-link>
         <router-link to="/Feed" class="btn_Register" tag="button">Feed</router-link>
         <router-link to="/Wall" class="btn_Register" tag="button">Wall</router-link>
         <router-link to="/CircleConfig" class="btn_Register" tag="button">Circle Config</router-link>

@@ -21,7 +21,7 @@ namespace DAB3.DAL
             _circlesService = new CirclesService();
         }
 
-        public void CreatePost(string MyName, string content, List<string> postCircles)
+        public string CreatePost(string MyName, string content, List<string> postCircles)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
            
@@ -42,6 +42,8 @@ namespace DAB3.DAL
                 circle1.Posts.Add(post1);
                 _circlesService.Update(circle1.Id, circle1);
             }
+
+            return "Post created";
         }
 
      
@@ -100,7 +102,7 @@ namespace DAB3.DAL
         }
 
         /////////////////// SUBSCRIBER /////////////////////////////
-        public void SubcribeToUser(string myName, string OtherUserName)
+        public string SubcribeToUser(string myName, string OtherUserName)
         {
             Users MyUser = _usersService.FindSingleUserFromName(myName);
             Users OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
@@ -133,7 +135,7 @@ namespace DAB3.DAL
 
 
         /////////////////////// CIRCLE ///////////////////////
-        public void CreateCircle(string myName, string circleName)
+        public string CreateCircle(string myName, string circleName)
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
             List<string> users = new List<string>();
@@ -168,19 +170,19 @@ namespace DAB3.DAL
             return CircleStrings;
         }
 
-        public Circle ShowCircle(string myName, string circleName)
-        {
-            Users MyUser = _usersService.FindSingleUserFromName(myName);
-            List<Circle> myCircles = new List<Circle>();
-            List<string> CircleStrings = new List<string>();
+        //public Circle ShowCircle(string myName, string circleName)
+        //{
+        //    Users MyUser = _usersService.FindSingleUserFromName(myName);
+        //    List<Circle> myCircles = new List<Circle>();
+        //    List<string> CircleStrings = new List<string>();
 
-            foreach (var circleID in MyUser.MyCirclesId)
-            {
-                CircleStrings.Add(_circlesService.Get(circleID).CircleName);
-            }
+        //    foreach (var circleID in MyUser.MyCirclesId)
+        //    {
+        //        CircleStrings.Add(_circlesService.Get(circleID).CircleName);
+        //    }
 
-            return CircleStrings;
-        }
+        //    return CircleStrings;
+        //}
 
 
 
@@ -205,7 +207,7 @@ namespace DAB3.DAL
             return "The circle has been deleted";
         }
 
-        public string AddUserToCircle(string myName, string OtherUserName, string circleName)
+        public string AddUserToCircle(string myName, string otherUserName, string circleName)
         {
             var myUser = _usersService.FindSingleUserFromName(myName);
             var OtherUser = _usersService.FindSingleUserFromName(otherUserName);
