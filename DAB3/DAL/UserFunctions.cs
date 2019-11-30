@@ -21,11 +21,10 @@ namespace DAB3.DAL
             _circlesService = new CirclesService();
         }
 
-        public string CreatePost(string MyName, string content, List<string> postCircles)
+        public string CreatePost(string MyName, string content, List<string> CircleNamesList)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
-           
-
+            
             Posts post1 = new Posts
             {
                 UserId = MyUser.Id, 
@@ -33,24 +32,22 @@ namespace DAB3.DAL
                 Time = DateTime.Now,
                 Comments = new List<Comments>()
             };
-
-            _usersService.Update(MyUser.Id, MyUser);
-
-            foreach (string circleId in postCircles)
+            
+            foreach (var circleName in CircleNamesList)
             {
-                var circle1 = _circlesService.Get(circleId);
-                circle1.Posts.Add(post1);
-                _circlesService.Update(circle1.Id, circle1);
+                Circle myCircle = _circlesService.FindSingleCircleFromName(circleName, MyUser.Id);
+                myCircle.Posts.Add(post1);
+                _circlesService.Update(myCircle.Id, myCircle);
             }
 
-            return "Post created";
+            return "The post has been created";
         }
 
      
         /////////////////////// COMMENT//////////////////////////
 
 
-        public string CreateComment(string comment, string MyName, string postid, string circleid)
+        public string CreateComment(string comment, string MyName, string postid, string circlename)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
             
@@ -60,7 +57,7 @@ namespace DAB3.DAL
                 Text = comment,
                 UserId = MyUser.Id
             };
-            Circle currentCircle = _circlesService.Get(circleid);
+            Circle currentCircle = _circlesService.FindSingleCircleFromName(circlename,MyUser.Id);
 
             foreach (var posts in currentCircle.Posts)
             {
@@ -69,7 +66,7 @@ namespace DAB3.DAL
                     posts.Comments.Add(comment1);
                 }
             }
-            _circlesService.Update(circleid, currentCircle);
+            _circlesService.Update(currentCircle.Id, currentCircle);
             return "Comment has been created";
         }
 
@@ -170,19 +167,24 @@ namespace DAB3.DAL
             return CircleStrings;
         }
 
-        //public Circle ShowCircle(string myName, string circleName)
-        //{
-        //    Users MyUser = _usersService.FindSingleUserFromName(myName);
-        //    List<Circle> myCircles = new List<Circle>();
-        //    List<string> CircleStrings = new List<string>();
+        public Circle ShowCircle(string myName, string circleName)
+        {
+            Users MyUser = _usersService.FindSingleUserFromName(myName);
+            Circle MyCircle = _circlesService.FindSingleCircleFromName(circleName, MyUser.Id);
 
-        //    foreach (var circleID in MyUser.MyCirclesId)
-        //    {
-        //        CircleStrings.Add(_circlesService.Get(circleID).CircleName);
-        //    }
+            Circle Chosen = new Circle();
 
-        //    return CircleStrings;
-        //}
+            foreach (var circleID in MyUser.MyCirclesId)
+            {
+                if (MyCircle.Id == circleID)
+                {
+                    Chosen = MyCircle;
+                }
+                
+            }
+
+            return Chosen;
+        }
 
 
 
