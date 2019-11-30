@@ -21,11 +21,10 @@ namespace DAB3.DAL
             _circlesService = new CirclesService();
         }
 
-        public void CreatePost(string MyName, string content, List<string> postCircles)
+        public string CreatePost(string MyName, string content, List<string> CircleNamesList)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
-           
-
+            
             Posts post1 = new Posts
             {
                 UserId = MyUser.Id, 
@@ -33,15 +32,15 @@ namespace DAB3.DAL
                 Time = DateTime.Now,
                 Comments = new List<Comments>()
             };
-
-            _usersService.Update(MyUser.Id, MyUser);
-
-            foreach (string circleId in postCircles)
+            
+            foreach (var circleName in CircleNamesList)
             {
-                var circle1 = _circlesService.Get(circleId);
-                circle1.Posts.Add(post1);
-                _circlesService.Update(circle1.Id, circle1);
+                Circle myCircle = _circlesService.FindSingleCircleFromName(circleName, MyUser.Id);
+                myCircle.Posts.Add(post1);
+                _circlesService.Update(myCircle.Id, myCircle);
             }
+
+            return "The post has been created";
         }
 
      
@@ -163,15 +162,20 @@ namespace DAB3.DAL
         public Circle ShowCircle(string myName, string circleName)
         {
             Users MyUser = _usersService.FindSingleUserFromName(myName);
-            List<Circle> myCircles = new List<Circle>();
-            List<string> CircleStrings = new List<string>();
+            Circle MyCircle = _circlesService.FindSingleCircleFromName(circleName, MyUser.Id);
+
+            Circle Chosen = new Circle();
 
             foreach (var circleID in MyUser.MyCirclesId)
             {
-                CircleStrings.Add(_circlesService.Get(circleID).CircleName);
+                if (MyCircle.Id == circleID)
+                {
+                    Chosen = MyCircle;
+                }
+                
             }
 
-            return CircleStrings;
+            return Chosen;
         }
 
 
