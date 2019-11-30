@@ -14,13 +14,13 @@ namespace DAB3.Controllers
     public class CommentsController : ControllerBase
     {
         
-        [HttpPost]
-        public ActionResult<Comments> Create(string comment, string myName, string postId)
-        {
-            UserFunctions commentFunctions = new UserFunctions();
+        //[HttpPost]
+        //public ActionResult<Comments> Create(string comment, string myName, string postId)
+        //{
+        //    UserFunctions commentFunctions = new UserFunctions();
 
-            return commentFunctions.CreateComment(comment, myName, postId);
-        }
+        //    return commentFunctions.CreateComment(comment, myName, postId);
+        //}
 
     }
 }
