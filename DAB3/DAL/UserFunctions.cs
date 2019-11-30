@@ -47,7 +47,7 @@ namespace DAB3.DAL
         /////////////////////// COMMENT//////////////////////////
 
 
-        public string CreateComment(string comment, string MyName, string postid, string circleid)
+        public string CreateComment(string comment, string MyName, string postid, string circlename)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
             
@@ -57,7 +57,7 @@ namespace DAB3.DAL
                 Text = comment,
                 UserId = MyUser.Id
             };
-            Circle currentCircle = _circlesService.Get(circleid);
+            Circle currentCircle = _circlesService.FindSingleCircleFromName(circlename,MyUser.Id);
 
             foreach (var posts in currentCircle.Posts)
             {
@@ -66,7 +66,7 @@ namespace DAB3.DAL
                     posts.Comments.Add(comment1);
                 }
             }
-            _circlesService.Update(circleid, currentCircle);
+            _circlesService.Update(currentCircle.Id, currentCircle);
             return "Comment has been created";
         }
 
@@ -99,7 +99,7 @@ namespace DAB3.DAL
         }
 
         /////////////////// SUBSCRIBER /////////////////////////////
-        public void SubcribeToUser(string myName, string OtherUserName)
+        public string SubcribeToUser(string myName, string OtherUserName)
         {
             Users MyUser = _usersService.FindSingleUserFromName(myName);
             Users OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
@@ -132,7 +132,7 @@ namespace DAB3.DAL
 
 
         /////////////////////// CIRCLE ///////////////////////
-        public void CreateCircle(string myName, string circleName)
+        public string CreateCircle(string myName, string circleName)
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
             List<string> users = new List<string>();
@@ -209,7 +209,7 @@ namespace DAB3.DAL
             return "The circle has been deleted";
         }
 
-        public string AddUserToCircle(string myName, string OtherUserName, string circleName)
+        public string AddUserToCircle(string myName, string otherUserName, string circleName)
         {
             var myUser = _usersService.FindSingleUserFromName(myName);
             var OtherUser = _usersService.FindSingleUserFromName(otherUserName);
