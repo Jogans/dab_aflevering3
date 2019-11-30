@@ -43,13 +43,16 @@ namespace DAB3.DAL
             return "The post has been created";
         }
 
-     
+
         /////////////////////// COMMENT//////////////////////////
 
 
-        public string CreateComment(string comment, string MyName, string postid, string circlename)
+        public string CreateComment(string comment, string MyName, string Postid)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
+            Circle myCircle = new Circle();
+            Circle correctCircle = new Circle();
+            Posts myPosts = new Posts();
             
             Comments comment1 = new Comments
             {
@@ -57,20 +60,24 @@ namespace DAB3.DAL
                 Text = comment,
                 UserId = MyUser.Id
             };
-            Circle currentCircle = _circlesService.FindSingleCircleFromName(circlename,MyUser.Id);
-
-            foreach (var posts in currentCircle.Posts)
+            foreach (var CircleId in MyUser.MyCirclesId)
             {
-                if (posts.Id == postid)
+                myCircle = _circlesService.Get(CircleId);
+
+                foreach (var post in myCircle.Posts)
                 {
-                    posts.Comments.Add(comment1);
+                    if (post.Id == Postid)
+                    {
+                        post.Comments.Add(comment1);
+                        _circlesService.Update(correctCircle.Id, correctCircle);
+                        return "Comment has been created";
+                    }
                 }
             }
-            _circlesService.Update(currentCircle.Id, currentCircle);
-            return "Comment has been created";
+            return "Comment has not been created";
         }
 
- 
+
         //////////////////////// BANLIST //////////////////////////
 
         public string AddUserToBanList(string myName, string banName)
