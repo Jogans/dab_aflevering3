@@ -73,26 +73,29 @@ namespace DAB3.DAL
  
         //////////////////////// BANLIST //////////////////////////
 
-        public void AddUserToBanList(string myName, string banName)
+        public string AddUserToBanList(string myName, string banName)
         {
             Users _banUser = _usersService.FindSingleUserFromName(banName);
-
 
             Users _myUser = _usersService.FindSingleUserFromName(myName);
            
             _myUser.BlackListedUserId.Add(_banUser.Id);
             _usersService.Update(_myUser.Id, _myUser);
+
+            return "User added to Ban list";
+
         }
 
 
-        public void RemoveUserFromBanList(string myName, string banName)
+        public string RemoveUserFromBanList(string myName, string banName)
         {
             Users _banUser = _usersService.FindSingleUserFromName(banName);
             Users _myUser = _usersService.FindSingleUserFromName(myName);
 
-            
             _myUser.BlackListedUserId.Remove(_banUser.Id);
             _usersService.Update(_myUser.Id, _myUser);
+
+            return "User removed from Ban list";
         }
 
         /////////////////// SUBSCRIBER /////////////////////////////
@@ -107,9 +110,11 @@ namespace DAB3.DAL
             
             MyUser.SubscribedTo.Add(subsribeCircle[0].Id);
             _usersService.Update(MyUser.Id, MyUser);
+
+            return "User added to subscribe list";
         }
 
-        public void UnsubcribeToUser(string myName, string OtherUserName)
+        public string UnsubcribeToUser(string myName, string OtherUserName)
         {
             Users MyUser = _usersService.FindSingleUserFromName(myName);
             Users OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
@@ -121,6 +126,7 @@ namespace DAB3.DAL
             MyUser.SubscribedTo.Remove(subsribeCircle[0].Id);
             _usersService.Update(MyUser.Id, MyUser);
 
+            return "User removed from subscribe list";
         }
 
 
@@ -143,6 +149,8 @@ namespace DAB3.DAL
 
             user1.MyCirclesId.Add(_circlesService.Get(circle1.Id).Id);
             _usersService.Update(user1.Id, user1);
+
+            return "Circle created <br/> Name: " + circleName + "<br/>" + "Circle Owner: " + myName;
         }
 
         public List<string> ShowMyCircles(string myName)
@@ -204,7 +212,7 @@ namespace DAB3.DAL
         public string AddUserToCircle(string myName, string OtherUserName, string circleName)
         {
             var myUser = _usersService.FindSingleUserFromName(myName);
-            var OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
+            var OtherUser = _usersService.FindSingleUserFromName(otherUserName);
 
             Circle circle =_circlesService.FindSingleCircleFromName(circleName, myUser.Id);
 
@@ -217,10 +225,10 @@ namespace DAB3.DAL
         }
 
 
-        public string RemoveUserFromCircle(string myName, string OtherUserName, string circleName)
+        public string RemoveUserFromCircle(string myName, string otherUserName, string circleName)
         {
             var myUser = _usersService.FindSingleUserFromName(myName);
-            var OtherUser = _usersService.FindSingleUserFromName(OtherUserName);
+            var OtherUser = _usersService.FindSingleUserFromName(otherUserName);
 
             Circle circle = _circlesService.FindSingleCircleFromName(circleName, myUser.Id);
 

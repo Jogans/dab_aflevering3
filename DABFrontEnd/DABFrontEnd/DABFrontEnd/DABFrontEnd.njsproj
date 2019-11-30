@@ -32,6 +32,9 @@
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
     <Content Include="src\App.vue" />
+    <Content Include="src\components\BanList.vue">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\components\CircleConfig.vue">
       <SubType>Code</SubType>
     </Content>
@@ -51,6 +54,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\Register.vue">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\components\Subscribe.vue">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\components\Wall.vue">

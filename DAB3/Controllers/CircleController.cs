@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAB3.DAL;
 using DAB3.Models;
 using DAB3.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,34 +15,27 @@ namespace DAB3.Controllers
     {
         private readonly CirclesService _circlesService;
 
+        UserFunctions circleFunctions = new UserFunctions();
+
         public CircleController(CirclesService circlesService)
         {
             _circlesService = circlesService;
         }
 
+        //[HttpGet]
+        //public ActionResult<List<Circle>> Get() =>
+        //    _circlesService.Get();
+
         [HttpGet]
-        public ActionResult<List<Circle>> Get() =>
-            _circlesService.Get();
-
-        [HttpGet("{id:length(24)}", Name = "GetCircle")]
-        public ActionResult<Circle> Get(string id)
+        public ActionResult<string> Get(string myName, string otherUserName, string circleName)
         {
-            var circle = _circlesService.Get(id);
-
-            if (circle == null)
-            {
-                return NotFound();
-            }
-
-            return circle;
+            return circleFunctions.AddUserToCircle(myName, otherUserName, circleName);
         }
 
         [HttpPost]
-        public ActionResult<Comments> Create(Circle circle)
+        public ActionResult<string> Create(string myName, string circleName)
         {
-            _circlesService.Create(circle);
-
-            return CreatedAtRoute("GetCircle", new { id = circle.Id.ToString() }, circle);
+            return circleFunctions.CreateCircle(myName, circleName);
         }
 
         [HttpPut("{id:length(24)}")]
@@ -59,19 +53,10 @@ namespace DAB3.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public ActionResult<string> Delete(string myName, string otherUserName, string circleName)
         {
-            var circle = _circlesService.Get(id);
-
-            if (circle == null)
-            {
-                return NotFound();
-            }
-
-            _circlesService.Remove(circle.Id);
-
-            return NoContent();
+            return circleFunctions.RemoveUserFromCircle(myName, otherUserName, circleName);
         }
 
     }
