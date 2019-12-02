@@ -11,7 +11,7 @@ namespace DAB3.Models
     {
        
         public string Id { get; set; }
-
+        public string img { get; set; } = null;
         public string UserId { get; set; }
         public string Text { get; set; }
         public DateTime Time { get; set; }

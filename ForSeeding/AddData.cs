@@ -222,21 +222,24 @@ namespace DAB3.DAL
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddHours(-300),
                 Text = "Nu er Ove ude på ballade igen!",
-                UserId = user2.Id
+                UserId = user2.Id,
+                img = "https://images.squarespace-cdn.com/content/5ac35d2ada02bcfea4174e7a/1523007397516-40LEMUSIIIKFNFNMQX5G/Logo_u_tagline.png?content-type=image%2Fpng"
             };
             Posts post4 = new Posts
             {
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddHours(-1000),
                 Text = "Ove er en meget sød dreng",
-                UserId = user4.Id
+                UserId = user4.Id,
+                img = "https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e.jpg"
             };
             Posts post5 = new Posts
             {
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddMinutes(-10),
                 Text = "Brunnhilde laver dejlig kage",
-                UserId = user1.Id
+                UserId = user1.Id,
+                img = "https://images.arla.com/recordid/c6c1f18f6dca46d4806da6e400fad604/drommekage-fra-brovst.jpg?crop=(0,340,0,-435)&w=1680&h=750&scale=both&ak=6826258c&hm=e96bc43a"
             };
 
          

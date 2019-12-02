@@ -9,6 +9,7 @@
             <br />
             <input type="text" v-model="ownName" placeholder="Own name">
             <input type="text" v-model="content" placeholder="Post text">
+            <input type="text" v-model="img" placeholder="Image link">
             <br />
             <button @click="addRow1">Add circle</button>
             <br />
@@ -42,6 +43,7 @@
                 content: null,
                 i: 0,
                 circleString: "",
+                img: null
             }
         },
         methods: {
@@ -66,7 +68,7 @@
                 return this.circleString;
             },
             createPost() {
-                this.$http.post('https://localhost:44341/api/Post?myName=' + this.ownName + '&content=' + this.content + '&circleNamesList=' + this.circleList(), {
+                this.$http.post('https://localhost:44341/api/Post?myName=' + this.ownName + '&content=' + this.content + '&circleNamesList=' + this.circleList() + '&img=' + this.img, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },

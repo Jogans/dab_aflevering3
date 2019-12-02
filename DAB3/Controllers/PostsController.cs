@@ -16,7 +16,7 @@ namespace DAB3.Controllers
         UserFunctions postFunctions = new UserFunctions();
 
         [HttpPost]
-        public ActionResult<string> Create(string myName, string content, string circleNamesList)
+        public ActionResult<string> Create(string myName, string content, string circleNamesList, string img)
         {
             List<string> circleList = new List<string>();
 
@@ -30,7 +30,7 @@ namespace DAB3.Controllers
                 }
             }
 
-            return postFunctions.CreatePost(myName, content, circleList);
+            return postFunctions.CreatePost(myName, content, circleList, img);
         }
 
         //[HttpDelete]
