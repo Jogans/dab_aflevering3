@@ -24,7 +24,7 @@ namespace DAB3.Controllers
 
             foreach (var index in circleSplit)
             {
-                if (index != "null")
+                if (index != null)
                 {
                     circleList.Add(index);
                 }
@@ -32,11 +32,5 @@ namespace DAB3.Controllers
 
             return postFunctions.CreatePost(myName, content, circleList, img);
         }
-
-        //[HttpDelete]
-        //public ActionResult<string> Delete(string myName, string banName)
-        //{
-        //    return subscribefFunctions.UnsubcribeToUser(myName, banName);
-        //}
     }
 }

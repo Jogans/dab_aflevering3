@@ -14,9 +14,9 @@ namespace DAB3.Services
         public CirclesService()
         {
             var client = new MongoClient("mongodb://localhost:27017");
-            var database = client.GetDatabase("DAB3Db");
-
-            _circles = database.GetCollection<Circle>("Circles");
+            var database = client.GetDatabase("DAB3Db2");
+            ///database.CreateCollection("Circles3");
+            _circles = database.GetCollection<Circle>("Circles3");
         }
 
         public List<Circle> Get() =>
