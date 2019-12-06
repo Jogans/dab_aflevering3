@@ -17,7 +17,7 @@ namespace DAB3.Services
         public UsersService()
         {
             var client = new MongoClient("mongodb://localhost:27017");
-            var database = client.GetDatabase("DAB3Db");
+            var database = client.GetDatabase("DAB3Db2");
 
             _users = database.GetCollection<Users>("Users");
         }

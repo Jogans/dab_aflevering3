@@ -19,5 +19,7 @@ namespace DAB3.Models
         
         //public List<string> CirclesId { get; set; }
         public List<Comments> Comments { get; set; } = new List<Comments>();
+
+        
     }
 }
