@@ -9,6 +9,7 @@
             <br />
             <input type="text" v-model="ownName" placeholder="Own name">
             <input type="text" v-model="content" placeholder="Post text">
+            <input type="text" v-model="img" placeholder="Image link">
             <br />
             <button @click="addRow1">Add circle</button>
             <br />
@@ -27,31 +28,6 @@
             <span v-html="info">{{info}}</span>
         </div>
 
-        <div class="containerPut">
-            <h1>Update Posts</h1>
-
-            <label for="id"><b>Update Data</b></label>
-            <br />
-            <input type="text" v-model="id" placeholder="Ved endnu ikke hvad der skal være her?" name="id" required>
-
-            <div class="clearfix">
-                <button class="update" @click="updateData">Update</button>
-            </div>
-
-        </div>
-
-
-        <div class="container">
-            <h1>Delete Posts</h1>
-            <label for="id"><b>Delete Data</b></label>
-            <br />
-            <input type="text" v-model="id" placeholder="Skriv id" name="id" required>
-
-            <div class="clearfix">
-                <button class="delete" @click="sletData">Delete</button>
-            </div>
-
-        </div>
     </div>
 </template>
 
@@ -67,6 +43,7 @@
                 content: null,
                 i: 0,
                 circleString: "",
+                img: null
             }
         },
         methods: {
@@ -91,21 +68,7 @@
                 return this.circleString;
             },
             createPost() {
-                this.$http.post('https://localhost:44341/api/Post?myName=' + this.ownName + '&content=' + this.content + '&circleNamesList=' + this.circleList(), {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                    },
-                }).then(response => (this.info = response.data))
-            },
-            updateData() {
-                this.$http.put('https://localhost:44341/api/Posts?id=' + this.searchParameter, {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                    },
-                }).then(response => (this.info = response.data))
-            },
-            sletData() {
-                this.$http.delete('https://localhost:44341/api/Posts?id=' + this.searchParameter, {
+                this.$http.post('https://localhost:44341/api/Post?myName=' + this.ownName + '&content=' + this.content + '&circleNamesList=' + this.circleList() + '&img=' + this.img, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },

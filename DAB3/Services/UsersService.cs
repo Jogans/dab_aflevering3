@@ -18,8 +18,8 @@ namespace DAB3.Services
         {
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("DAB3Db2");
-
-            _users = database.GetCollection<Users>("Users");
+            //database.CreateCollection("Users2");
+            _users = database.GetCollection<Users>("Users2");
         }
 
         public List<Users> Get() =>

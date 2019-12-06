@@ -26,20 +26,15 @@
 
                 <label for="gender"><b>Choose gender</b></label>
                 <br />
-                <div class="slidecontainer">
-                    Male
-                    <input type="range" min="1" max="1000" value="500" class="slider" id="myRange">
-                    Female
-                </div>
-                <!--<select class="gender" id="gender_id" name="gender">
-                    <option value="Mand">Mand</option>
-                    <option value="Din mor">Din mor</option>
-                </select>-->
+                <select class="gender" id="gender_id" v-model="gender1" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 <br />
                 <br />
                 <label for="age1"><b>Age</b></label>
                 <br />
-                <input type="text" placeholder="Skriv alder" name="age1" required>
+                <input type="text" placeholder="Skriv alder" v-model="age1" name="age1" required>
 
 
                 <br />
@@ -48,10 +43,12 @@
                 <div class="clearfix">
                     <button class="register" @click="register">Tilmeld</button>
                 </div>
+                <br />
+                <span v-html="info1">{{info1}}</span>
 
             </div>
 
-            <div class="container2">
+            <!--<div class="container2">
                 <h1>Update data</h1>
 
                 <label for="name2"><b>Name</b></label>
@@ -60,17 +57,13 @@
                 <br />
                 <br />
 
-                <label for="gender"><b>Fra mand til kvinde vælg hvor du ligger</b></label>
+                <label for="gender"><b>Choose Gender</b></label>
                 <br />
-                <div class="slidecontainer">
-                    Male
-                    <input type="range" min="1" max="1000" value="500" class="slider" id="myRange">
-                    Female
-                </div>
-                <!--<select class="gender" id="gender_id" name="gender">
-        <option value="Mand">Mand</option>
-        <option value="Din mor">Din mor</option>
-    </select>-->
+
+                <select class="gender" id="gender_id" v-model="gender2" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 <br />
                 <br />
                 <label for="age2"><b>Age</b></label>
@@ -98,7 +91,7 @@
                     <button class="delete" @click="slet">Delete</button>
                 </div>
 
-            </div>
+            </div>-->
 
         </div>
     </div>
@@ -107,11 +100,20 @@
 <script>
     export default {
         name: 'Register',
+        props: {
+        },
         data: function () {
             return {
                 info: null,
+                info1: null,
                 loginName: null,
-                searchParameter: null
+                searchParameter: null,
+                gender1: null,
+                gender2: null,
+                name1: null,
+                name2: null,
+                age1: null,
+                age2: null
             }
         },
         methods: {
@@ -123,25 +125,11 @@
                 }).then(response => (this.info = response.data))
             },
             register() {
-                this.$http.post('https://localhost:44341/api/user?get=' + this.searchParameter, {
+                this.$http.post('https://localhost:44341/api/user?name=' + this.name1 + '&gender=' + this.gender1 + '&age=' +this.age1, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },
-                }).then(response => (this.info = response.data))
-            },
-            update() {
-                this.$http.put('https://localhost:44341/api/user?get=' + this.searchParameter, {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                    },
-                }).then(response => (this.info = response.data))
-            },
-            slet() {
-                this.$http.delete('https://localhost:44341/api/user?get=' + this.searchParameter, {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                    },
-                }).then(response => (this.info = response.data))
+                }).then(response => (this.info1 = response.data))
             }
         }
     };

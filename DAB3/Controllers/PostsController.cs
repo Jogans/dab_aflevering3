@@ -16,7 +16,7 @@ namespace DAB3.Controllers
         UserFunctions postFunctions = new UserFunctions();
 
         [HttpPost]
-        public ActionResult<string> Create(string myName, string content, string circleNamesList)
+        public ActionResult<string> Create(string myName, string content, string circleNamesList, string img)
         {
             List<string> circleList = new List<string>();
 
@@ -24,19 +24,13 @@ namespace DAB3.Controllers
 
             foreach (var index in circleSplit)
             {
-                if (index != "null")
+                if (index != null)
                 {
                     circleList.Add(index);
                 }
             }
 
-            return postFunctions.CreatePost(myName, content, circleList);
+            return postFunctions.CreatePost(myName, content, circleList, img);
         }
-
-        //[HttpDelete]
-        //public ActionResult<string> Delete(string myName, string banName)
-        //{
-        //    return subscribefFunctions.UnsubcribeToUser(myName, banName);
-        //}
     }
 }

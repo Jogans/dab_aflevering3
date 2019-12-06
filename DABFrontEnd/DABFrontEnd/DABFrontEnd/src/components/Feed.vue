@@ -5,8 +5,11 @@
         <input type="text" placeholder="Write your name" v-model="owwName" required>
         <input type="text" placeholder="Write post id" v-model="postId" required>
         <input class="commentInput" type="text" placeholder="Write your Comment" v-model="comment" required>
+        <button class='test_btn' @click='sendComment'>Comment on post</button>
         <br />
         <button class="test_btn" @click="getFeed">Find Feed</button>
+        <br />
+        <span v-html="info2">{{info2}}</span>
         <br />
         <span v-html="info">{{info}}</span>
     </div>
@@ -21,6 +24,7 @@
                 owwName: null,
                 comment: null,
                 postId: null,
+                info2: null,
             }
         },
         methods: {
@@ -36,7 +40,7 @@
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },
-                }).then(response => (this.info = response.data))
+                }).then(response => (this.info2 = response.data))
             }
         }
     };

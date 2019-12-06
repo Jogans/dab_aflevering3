@@ -36,8 +36,22 @@ namespace DAB3.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Users> Create(Users user)          //Done
+        public ActionResult<string> Create(string name, string gender, string age)
         {
+
+            int i = 0;
+            if (!Int32.TryParse(age, out i))
+            {
+                i = -1;
+            }
+
+            Users user = new Users
+            {
+                UserName = name,
+                Age = i,
+                Gender = gender,
+
+            };
             Circle circle = new Circle {CircleName = "Public", UserIds = new List<string>()};
             circle.CircleOwner = circle.Id;
             circle.UserIds.Add(user.Id);
@@ -46,7 +60,7 @@ namespace DAB3.Controllers
             user.MyCirclesId.Add(circle.Id);
             _usersService.Create(user);
 
-            return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
+            return "User created";
         }
 
         [HttpPut("{id:length(24)}")]

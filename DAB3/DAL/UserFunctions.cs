@@ -13,7 +13,7 @@ namespace DAB3.DAL
     {
         UsersService _usersService;
         private CirclesService _circlesService;
-       
+
 
         public UserFunctions()
         {
@@ -21,19 +21,20 @@ namespace DAB3.DAL
             _circlesService = new CirclesService();
         }
 
-        public string CreatePost(string MyName, string content, List<string> CircleNamesList)
+        public string CreatePost(string MyName, string content, List<string> CircleNamesList, string img)
         {
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
-            
+
             Posts post1 = new Posts
             {
-                UserId = MyUser.Id, 
-                Text = content, 
+                UserId = MyUser.Id,
+                Text = content,
                 Time = DateTime.Now,
                 Id = DateTime.Now.ToLongTimeString(),
-                Comments = new List<Comments>()
+                Comments = new List<Comments>(),
+                img = img
             };
-            
+
             foreach (var circleName in CircleNamesList)
             {
                 Circle myCircle = _circlesService.FindSingleCircleFromName(circleName, MyUser.Id);
@@ -53,7 +54,7 @@ namespace DAB3.DAL
             Users MyUser = _usersService.FindSingleUserFromName(MyName);
             Circle myCircle = new Circle();
             Posts myPosts = new Posts();
-            
+
             Comments comment1 = new Comments
             {
                 Time = DateTime.Now,
@@ -85,7 +86,7 @@ namespace DAB3.DAL
             Users _banUser = _usersService.FindSingleUserFromName(banName);
 
             Users _myUser = _usersService.FindSingleUserFromName(myName);
-           
+
             _myUser.BlackListedUserId.Add(_banUser.Id);
             _usersService.Update(_myUser.Id, _myUser);
 
@@ -114,7 +115,7 @@ namespace DAB3.DAL
             List<Circle> subsribeCircle = _circlesService.FindCircleFromName("Public", OtherUser.Id);
             subsribeCircle[0].UserIds.Add(MyUser.Id);
             _circlesService.Update(OtherUser.Id, subsribeCircle[0]);
-            
+
             MyUser.SubscribedTo.Add(subsribeCircle[0].Id);
             _usersService.Update(MyUser.Id, MyUser);
 
@@ -143,7 +144,7 @@ namespace DAB3.DAL
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
             List<string> users = new List<string>();
-            
+
             users.Add(user1.Id);
             Circle circle1 = new Circle
             {
@@ -187,20 +188,17 @@ namespace DAB3.DAL
                 {
                     Chosen = MyCircle;
                 }
-                
+
             }
 
             return Chosen;
         }
 
-
-
-
         public string DeleteCircle(string myName, string circleName)
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
-           
-            Circle circle1 = _circlesService.FindSingleCircleFromName(circleName, user1.Id );
+
+            Circle circle1 = _circlesService.FindSingleCircleFromName(circleName, user1.Id);
             if (circle1.CircleOwner != user1.Id)
             {
                 return "You are not the owner of this circle";
@@ -221,7 +219,7 @@ namespace DAB3.DAL
             var myUser = _usersService.FindSingleUserFromName(myName);
             var OtherUser = _usersService.FindSingleUserFromName(otherUserName);
 
-            Circle circle =_circlesService.FindSingleCircleFromName(circleName, myUser.Id);
+            Circle circle = _circlesService.FindSingleCircleFromName(circleName, myUser.Id);
 
             circle.UserIds.Add(OtherUser.Id);
             _circlesService.Update(circle.Id, circle);
@@ -253,7 +251,7 @@ namespace DAB3.DAL
         }
 
 
-        
+
         /////////// LIST ///////////////////////////
         public List<Posts> Feed(string Logged_In_UserName)
         {
@@ -262,12 +260,12 @@ namespace DAB3.DAL
             Users _loggedInUser = _userList[0];
 
 
-        // SUBSCRIBED TO
-        if (_loggedInUser.SubscribedTo == null)
-        {
-            
-        }
-        foreach (var subscription in _loggedInUser.SubscribedTo)
+            // SUBSCRIBED TO
+            if (_loggedInUser.SubscribedTo == null)
+            {
+
+            }
+            foreach (var subscription in _loggedInUser.SubscribedTo)
             {
                 var provider = _usersService.Get(_loggedInUser.Id);
 
@@ -335,32 +333,29 @@ namespace DAB3.DAL
             string bodystring = "";
             foreach (var post in Feed)
             {
-                bodystring += "<p>" + "Text: " + post.Text + "<br/>"
-                    + "Circle: " + post.Id;
+                bodystring += "<p>" + "Text: " + post.Text + "<br/>";
+
+                if (post.img != "null")
+                {
+                    bodystring += "<img src='" + post.img + "' height='10%' width='10%'>" + "<br/>";
+                }
+
                 foreach (var comment in post.Comments)
                 {
-                    bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                    bodystring += " Comment: " + comment.Text + " -------- By: " + _usersService.Get(comment.UserId).UserName + "<br/>";
                 }
 
                 bodystring += " Posted: " + post.Time + "<br/>" +
                               " Post id: " + post.Id +
                               "<p/>"
-                              + "<button class='test_btn'@click='sendComment'>Comment on post</button>" + "<br/>";
+                              + "<br/>";
             }
 
             return initString + bodystring + endString;
         }
 
-
-        // OVERVEJELSE? HVORDAN SKAL PUBLIC FORSTÅS? KAN ALLE SE DET ELLER KUN DEM SOM SUBSCRIBER
-        // HVIS JEG BESØGER EN ANDEN BRUGER KAN JEG SE NOGET PÅ PERSONENS WALL?
-
-
-
-
-    
         /// //////////////////////// WALL ///////////////////////
-       
+
         public List<Posts> Wall(string VisitorName, string HostName)
         {
             List<Users> _VisitorList = _usersService.FindUserFromName(VisitorName);
@@ -371,9 +366,9 @@ namespace DAB3.DAL
 
 
             List<Posts> Wall = new List<Posts>();
-            
-            
-           if (HostUser.BlackListedUserId.Contains(VisitorUser.Id))
+
+
+            if (HostUser.BlackListedUserId.Contains(VisitorUser.Id))
             {
                 return null;
             }
@@ -386,7 +381,7 @@ namespace DAB3.DAL
                 {
                     continue;
                 }
-                
+
                 List<Posts> FromUser = new List<Posts>();
 
                 foreach (var post in circle.Posts)
@@ -406,7 +401,7 @@ namespace DAB3.DAL
                     int count = circle.Posts.Count;
                     if (count >= 1)
                     {
-                        count --;
+                        count--;
                     }
                     int countMax = count - 3;
                     if (countMax < 0)
@@ -434,26 +429,28 @@ namespace DAB3.DAL
             string endString = "</html>";
 
             string bodystring = "";
+
             foreach (var post in Wall)
             {
                 bodystring += "<p>" + "Text: " + post.Text + "<br/>";
-                foreach (var comment in post.Comments)
+
+                if (post.img != "null")
                 {
-                    bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                    bodystring += "<img src='" + post.img + "' height='10%' width='10%'>" + "<br/>";
                 }
 
-                bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
+                foreach (var comment in post.Comments)
+                {
+                    bodystring += " Comment: " + comment.Text + " -------- By: " + _usersService.Get(comment.UserId).UserName + "<br/>";
+                }
+
+                bodystring += " Posted: " + post.Time + "<br/>" +
+                              " Post id: " + post.Id +
+                              "<p/>"
+                              + "<br/>";
             }
+
             return initString + bodystring + endString;
         }
     }
-
-    //foreach (var comment in post.Comments)
-    //{
-    //bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
-    //}
-    //bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
-
-
-
 }

@@ -30,6 +30,7 @@
 <style scoped>
     button{
         font-size: 20px;
+        margin: 5px;
     }
 </style>
 
