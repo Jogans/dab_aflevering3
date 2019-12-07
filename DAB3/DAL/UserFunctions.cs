@@ -194,9 +194,6 @@ namespace DAB3.DAL
             return Chosen;
         }
 
-
-
-
         public string DeleteCircle(string myName, string circleName)
         {
             Users user1 = _usersService.FindSingleUserFromName(myName);
@@ -338,7 +335,7 @@ namespace DAB3.DAL
             {
                 bodystring += "<p>" + "Text: " + post.Text + "<br/>";
 
-                if (post.img != null)
+                if (post.img != "null")
                 {
                     bodystring += "<img src='" + post.img + "' height='10%' width='10%'>" + "<br/>";
                 }
@@ -356,14 +353,6 @@ namespace DAB3.DAL
 
             return initString + bodystring + endString;
         }
-
-
-        // OVERVEJELSE? HVORDAN SKAL PUBLIC FORSTÅS? KAN ALLE SE DET ELLER KUN DEM SOM SUBSCRIBER
-        // HVIS JEG BESØGER EN ANDEN BRUGER KAN JEG SE NOGET PÅ PERSONENS WALL?
-
-
-
-
 
         /// //////////////////////// WALL ///////////////////////
 
@@ -445,7 +434,7 @@ namespace DAB3.DAL
             {
                 bodystring += "<p>" + "Text: " + post.Text + "<br/>";
 
-                if (post.img != null)
+                if (post.img != "null")
                 {
                     bodystring += "<img src='" + post.img + "' height='10%' width='10%'>" + "<br/>";
                 }
@@ -464,13 +453,4 @@ namespace DAB3.DAL
             return initString + bodystring + endString;
         }
     }
-
-    //foreach (var comment in post.Comments)
-    //{
-    //bodystring += " Comment: " + comment.Text + "<br/>" + "Comment from: " + _usersService.Get(comment.UserId).UserName + "<br/>";
-    //}
-    //bodystring += " Posted: " + post.Time + "<p/>" + "<br/>";
-
-
-
 }

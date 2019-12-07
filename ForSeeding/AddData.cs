@@ -209,6 +209,7 @@ namespace DAB3.DAL
                 Time = DateTime.Now.AddDays(-122),
                 Text = "Farmand er hjemme",
                 UserId = user3.Id
+                Id = "1"
             };
             Posts post2 = new Posts
             {
@@ -216,6 +217,7 @@ namespace DAB3.DAL
                 Time = DateTime.Now.AddDays(-30),
                 Text = "Mine forældre er så tarvelige!",
                 UserId = user1.Id
+                Id = "2"
             };
             Posts post3 = new Posts
             {
@@ -223,7 +225,8 @@ namespace DAB3.DAL
                 Time = DateTime.Now.AddHours(-300),
                 Text = "Nu er Ove ude på ballade igen!",
                 UserId = user2.Id,
-                img = "https://images.squarespace-cdn.com/content/5ac35d2ada02bcfea4174e7a/1523007397516-40LEMUSIIIKFNFNMQX5G/Logo_u_tagline.png?content-type=image%2Fpng"
+                img = "https://images.squarespace-cdn.com/content/5ac35d2ada02bcfea4174e7a/1523007397516-40LEMUSIIIKFNFNMQX5G/Logo_u_tagline.png?content-type=image%2Fpng",
+                Id = "3"
             };
             Posts post4 = new Posts
             {
@@ -231,7 +234,8 @@ namespace DAB3.DAL
                 Time = DateTime.Now.AddHours(-1000),
                 Text = "Ove er en meget sød dreng",
                 UserId = user4.Id,
-                img = "https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e.jpg"
+                img = "https://pbs.twimg.com/profile_images/949787136030539782/LnRrYf6e.jpg",
+                Id = "4"
             };
             Posts post5 = new Posts
             {
@@ -239,10 +243,11 @@ namespace DAB3.DAL
                 Time = DateTime.Now.AddMinutes(-10),
                 Text = "Brunnhilde laver dejlig kage",
                 UserId = user1.Id,
-                img = "https://images.arla.com/recordid/c6c1f18f6dca46d4806da6e400fad604/drommekage-fra-brovst.jpg?crop=(0,340,0,-435)&w=1680&h=750&scale=both&ak=6826258c&hm=e96bc43a"
+                img = "https://images.arla.com/recordid/c6c1f18f6dca46d4806da6e400fad604/drommekage-fra-brovst.jpg?crop=(0,340,0,-435)&w=1680&h=750&scale=both&ak=6826258c&hm=e96bc43a",
+                Id = "5"
             };
 
-         
+
 
 
             Comments[] comments = new Comments[]

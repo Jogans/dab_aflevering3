@@ -22,10 +22,6 @@ namespace DAB3.Controllers
             _circlesService = circlesService;
         }
 
-        //[HttpGet]
-        //public ActionResult<List<Circle>> Get() =>
-        //    _circlesService.Get();
-
         [HttpGet]
         public ActionResult<string> Get(string myName, string otherUserName, string circleName)
         {

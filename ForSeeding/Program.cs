@@ -18,9 +18,8 @@ namespace ForSeeding
             AddData addData = new AddData();
             addData.DoTheThing();
 
-            UsersService service = new UsersService();
-            var ting = service.FindUserFromName("Ove Larsen");
-            Console.WriteLine($"{ting[0].UserName}");
+          
+            Console.WriteLine("Data er nu seedet");
 
 
 

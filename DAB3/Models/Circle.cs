@@ -15,12 +15,6 @@ namespace DAB3.Models
         public List<string> UserIds { get; set; } = new List<string>();
         public string CircleName { get; set; }
         public string CircleOwner { get; set; }
-       
-        /// <summary>
-        ///  EVT Skal der inkluderes en Liste af posts
-        /// </summary>
         public List<Posts> Posts { get; set; } = new List<Posts>();
-
-
     }
 }
