@@ -25,6 +25,15 @@
         <br />
         <span v-html="info2">{{info2}}</span>
 
+        <h3>Instructions</h3>
+        <p>
+            To create a new circle, enter the full registered name of the user and enter a circle name of your choosing.<br />  The Circle is created and the user is set to owner of the circle
+            <br /><br /> To add a user to a circle, write your own name and the desired user`s name in the first two input fields. <br />Enter the name of the circle in question into the third input field.
+            <br /> <br /> To remove a user from a circle, write your own name and the desired user`s name in the two input fields.<br /> Enter the name of the circle in question into the third input field. <br />The removed user cannot be set to owner of the circle.
+            <br /><br /> All three functions requires full registered name and correct use of upper or lower case.
+        </p>
+
+
     </div>
 </template>
 

@@ -1,5 +1,7 @@
 <template>
     <div>
+        
+
         <label for="email"><b>Name</b></label>
         <br />
         <input type="text" placeholder="Skriv navn" v-bind="searchParameter" required>
@@ -9,6 +11,8 @@
         <br />
         <br />
         <span v-html="info">{{info}}</span>
+
+
     </div>
 </template>
 

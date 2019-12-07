@@ -15,6 +15,10 @@
         <button class="test_btn" @click="deleteFromBanList">Remove from subscribe list</button>
         <br />
         <span v-html="info2">{{info2}}</span>
+
+        <h3>Instructions</h3>
+        <p>  To subscribe or unsubscribe, write your own name and the desired user`s name in the two input fields. <br /> Both functions requires full registered name and correct use of upper or lower case. </p>
+
     </div>
 </template>
 

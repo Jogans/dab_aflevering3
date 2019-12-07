@@ -5,6 +5,7 @@
         <div class="containerPost">
             <h1>Create Post</h1>
 
+
             <label><b>Post Data</b></label>
             <br />
             <input type="text" v-model="ownName" placeholder="Own name">
@@ -17,7 +18,7 @@
             <ul>
                 <li v-for="(input1, index1) in inputs1" v-bind:key="input1">
                     <input type="text" placeholder="Circle Name" v-model="input1.one" />
-                    <button class="btn_delete" @click="deleteRow1(index1)">Slet</button>
+                    <button class="btn_delete" @click="deleteRow1(index1)">Remove Circle</button>
                 </li>
             </ul>
             <div class="clearfix">
@@ -26,6 +27,20 @@
             </div>
             <br />
             <span v-html="info">{{info}}</span>
+            <h3>Instructions</h3>
+            <p>
+                To create a post, first enter your full registred name in the input field "Own Name"
+                <br /> Thereafter enter either a Post text or enter an image URL or both in the two input fields.
+                <br /> Now press the button "Add Circle" and a new input field appears. Here you can enter the name of cirles, you want to post your Post input.
+                <br /> The button "Add Cirles" can be pressed multiple times to make a post appear in several Circles
+              
+                <br /> An undesired additional circle can be remove by pressing the button Remove circle
+
+                <br /> To create the post in the desired circles press the button "Post"
+                <br /> This function requires full registered name and correct use of upper or lower case in the Input fields "Own name" and "Circle name"
+                <br/> To create a Post, the user must be included in the circles, in order to successfully create a post.
+            </p>
+
         </div>
 
     </div>

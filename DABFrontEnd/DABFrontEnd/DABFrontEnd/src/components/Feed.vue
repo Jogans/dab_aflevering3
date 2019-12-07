@@ -12,6 +12,19 @@
         <span v-html="info2">{{info2}}</span>
         <br />
         <span v-html="info">{{info}}</span>
+
+        <h3>Instructions</h3>
+        <p>
+            To get a User`s feed, enter the full registered name of the specific user
+            <br /> Now press the button "Find Feed"
+
+            <br />
+            <br />To Comment a specific Post, copy the post id into to input field "Write post id"
+            <br /> Enter the name of the user that comments on the post
+            <br /> Enter the comment into the input field "Write your Comment"
+            <br /> Finally press the button "Comment on Post" to comment
+
+        </p>
     </div>
 </template>
 
