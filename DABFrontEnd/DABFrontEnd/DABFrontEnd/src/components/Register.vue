@@ -47,52 +47,6 @@
                 <span v-html="info1">{{info1}}</span>
 
             </div>
-
-            <!--<div class="container2">
-                <h1>Update data</h1>
-
-                <label for="name2"><b>Name</b></label>
-                <br />
-                <input type="text" v-model="name2" placeholder="Skriv navn" name="name2" required>
-                <br />
-                <br />
-
-                <label for="gender"><b>Choose Gender</b></label>
-                <br />
-
-                <select class="gender" id="gender_id" v-model="gender2" name="gender">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <br />
-                <br />
-                <label for="age2"><b>Age</b></label>
-                <br />
-                <input type="text" placeholder="Skriv alder" name="age2" required>
-
-
-                <br />
-                <br />
-
-                <div class="clearfix">
-                    <button class="update" @click="update">Update</button>
-                </div>
-
-            </div>
-
-            <div class="container2">
-                <h1>Delete user</h1>
-
-                <label for="id"><b>Indtast Id</b></label>
-                <br />
-                <input type="text" v-model="id" placeholder="Skriv navn" name="id" required>
-
-                <div class="clearfix">
-                    <button class="delete" @click="slet">Delete</button>
-                </div>
-
-            </div>-->
-
         </div>
     </div>
 </template>
