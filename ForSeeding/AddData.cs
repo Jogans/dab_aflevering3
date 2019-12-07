@@ -208,7 +208,7 @@ namespace DAB3.DAL
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddDays(-122),
                 Text = "Farmand er hjemme",
-                UserId = user3.Id
+                UserId = user3.Id,
                 Id = "1"
             };
             Posts post2 = new Posts
@@ -216,7 +216,7 @@ namespace DAB3.DAL
                 Comments = new List<Comments>(),
                 Time = DateTime.Now.AddDays(-30),
                 Text = "Mine forældre er så tarvelige!",
-                UserId = user1.Id
+                UserId = user1.Id,
                 Id = "2"
             };
             Posts post3 = new Posts
