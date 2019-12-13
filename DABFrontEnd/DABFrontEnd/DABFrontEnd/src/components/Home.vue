@@ -11,6 +11,7 @@
         <router-link to="/BanList" class="btn_Register" tag="button">Ban List</router-link>
         <router-link to="/Subscribe" class="btn_Register" tag="button">Subscribe</router-link>
 
+        <p> <strong> Welcome to our Social Site! In this header you can choose among the functions on the site</strong></p>
     </div>
 </template>
 

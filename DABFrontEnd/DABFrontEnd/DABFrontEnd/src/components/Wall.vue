@@ -12,6 +12,20 @@
         <span v-html="info2">{{info2}}</span>
         <br />
         <span v-html="info">{{info}}</span>
+        <h3>Instructions</h3>
+        <p>
+            To get a specific User`s Wall from the perspective of another specific user
+            <br /> Enter the full registered name of the specific user you want to persective of
+            <br /> Enter the full registered name of the specific user, who`s wall you want to request 
+
+            <br />
+            <br />To Comment a specific Post, copy the post id into to input field "Write post id"
+            <br /> Enter the name of the user that comments on the post
+            <br /> Enter the comment into the input field "Write your Comment"
+            <br /> Finally press the button "Comment on Post" to comment
+
+        </p>
+
     </div>
 </template>
 

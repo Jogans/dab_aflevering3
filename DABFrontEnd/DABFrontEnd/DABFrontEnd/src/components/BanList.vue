@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <h1><b>Add user to ban list</b></h1>
         <input type="text" placeholder="Write your name" v-model="myName1" required>
         <input type="text" placeholder="Write name of other user" v-model="otherUserName1" required>
@@ -14,6 +15,11 @@
         <br />
         <button class="test_btn" @click="deleteFromBanList">Remove from ban list</button>
         <br />
+
+        
+        <h3>Instructions</h3>
+        <p>  To add or remove a User to/from the Ban List, write your own name and the desired user`s name to ban in the two input fields. <br/> This functions requires full registered name and correct use of upper or lower case. </p>
+
         <span v-html="info2">{{info2}}</span>
     </div>
 </template>

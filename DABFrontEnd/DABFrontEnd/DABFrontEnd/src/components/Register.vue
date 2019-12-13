@@ -41,10 +41,19 @@
                 <br />
 
                 <div class="clearfix">
-                    <button class="register" @click="register">Tilmeld</button>
+                    <button class="register" @click="register">Register</button>
                 </div>
                 <br />
                 <span v-html="info1">{{info1}}</span>
+
+                <h3>Instructions</h3>
+                <p>
+                    To login enter the name of an already registered user (Full registered name and correct use of upper and lower case applies)
+                    <br /> This function only returns the user name if the user is registered in the database
+                    <br />
+                    <br /> To Register fill out the input fields and press the button "Register"
+                    <br /> The user will now appear in the database. 
+                </p>
 
             </div>
         </div>
