@@ -52,14 +52,15 @@ namespace DAB3.Controllers
                 Gender = gender,
 
             };
-            Circle circle = new Circle {CircleName = "Public", UserIds = new List<string>()};
-            circle.CircleOwner = circle.Id;
+            
+            _usersService.Create(user);
+            Circle circle = new Circle { CircleName = "Public", UserIds = new List<string>() };
+            circle.CircleOwner = user.Id;
             circle.UserIds.Add(user.Id);
             CirclesService service = new CirclesService();
             service.Create(circle);
             user.MyCirclesId.Add(circle.Id);
-            _usersService.Create(user);
-
+            _usersService.Update(user.Id, user);
             return "User created";
         }
 
